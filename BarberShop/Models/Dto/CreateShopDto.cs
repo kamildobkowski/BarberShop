@@ -16,4 +16,5 @@ public class CreateShopDto
 	public int ApartamentNumber { get; set; }
 	[Required]
 	public int PostalCode { get; set; }
+	
 }

@@ -21,7 +21,7 @@ public class ShopService : IShopService
 		_locationService = locationService;
 		_dbContext = dbContext;
 	}
-	public async Task<int> AddShop(CreateShopDto dto)
+	public async Task<int> AddShopAsync(CreateShopDto dto)
 	{
 		var entity = _mapper.Map<Shop>(dto);
 		await _locationService.GetCoordinates(entity.Address);

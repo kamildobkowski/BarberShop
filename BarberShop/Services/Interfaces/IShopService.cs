@@ -5,5 +5,5 @@ namespace BarberShop.Services.Interfaces;
 
 public interface IShopService
 {
-	public Task<int> AddShop(CreateShopDto dto);
+	public Task<int> AddShopAsync(CreateShopDto dto);
 }

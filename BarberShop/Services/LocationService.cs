@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Azure.Core.GeoJson;
 using BarberShop.Entities.BarberShop;
 using BarberShop.Services.Interfaces;
 
@@ -33,11 +34,24 @@ public class LocationService : ILocationService
 			var lat = item["lat"];
 			var lon = item["lon"];
 			address.Latitude = double.Parse(lat.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture);
-			address.Longitute = double.Parse(lon.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture);
+			address.Longitude = double.Parse(lon.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture);
 		}
 		catch (ArgumentNullException e)
 		{
 			await Console.Out.WriteAsync("couldn't parse location!");
 		}
 	}
+
+	public double GetDistance(Address point1, Address point2)
+	{
+		var d1 = point1.Latitude * (Math.PI / 180.0);
+		var num1 = point1.Longitude * (Math.PI / 180.0);
+		var d2 = point2.Latitude * (Math.PI / 180.0);
+		var num2 = point2.Longitude * (Math.PI / 180.0) - num1;
+		var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) +
+		         Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+		return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+	}
+	
+	
 }

@@ -14,7 +14,7 @@ public class Address
 	public int Number { get; set; }
 	public int ApartamentNumber { get; set; }
 	public int PostalCode { get; set; }
-	public double Longitute { get; set; }
+	public double Longitude { get; set; }
 	public double Latitude { get; set; }
 
 }

@@ -15,9 +15,9 @@ public class ShopController
 		_shopService = shopService;
 	}
 	[HttpPost]
-	public Task<int> AddShop([FromBody]CreateShopDto dto)
+	public int AddShop([FromBody]CreateShopDto dto)
 	{
-		var entityId = _shopService.AddShop(dto);
+		var entityId = _shopService.AddShopAsync(dto).GetAwaiter().GetResult();
 		return entityId;
 	}
 }
