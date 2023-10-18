@@ -1,20 +1,19 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Components;
 
-namespace BarberShop.Entities.BarberShop;
+namespace BarberShop.Models.Dto;
 
-public class Address
+public class CreateShopDto
 {
-	public int Id { get; set; }
+	[Required]
+	public string Name { get; set; }
 	[Required]
 	public string Street { get; set; }
 	[Required]
 	public string City { get; set; }
 	[Required]
 	public int Number { get; set; }
+	[Required]
 	public int ApartamentNumber { get; set; }
+	[Required]
 	public int PostalCode { get; set; }
-	public double Longitute { get; set; }
-	public double Latitude { get; set; }
-
 }

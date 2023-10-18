@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BarberShop.Entities;
+namespace BarberShop.Entities.BarberShop;
 
 public class Service
 {

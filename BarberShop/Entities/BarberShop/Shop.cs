@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BarberShop.Entities;
+namespace BarberShop.Entities.BarberShop;
 
 public class Shop
 {
@@ -8,7 +8,11 @@ public class Shop
 	[Required]
 	public string Name { get; set; }
 	
-	public virtual List<Service> Services { get; set; }
+	public virtual List<Service>? Services { get; set; }
+	public virtual List<Review>? Reviews { get; set; }
 	
 	
+	public int AddressId { get; set; }
+	public virtual Address Address { get; set; }
+
 }
