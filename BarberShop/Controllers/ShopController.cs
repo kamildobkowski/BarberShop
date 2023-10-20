@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BarberShop.Controllers;
 
 [Route("api")]
+[ApiController]
 public class ShopController
 {
 	private readonly IShopService _shopService;
@@ -14,10 +15,25 @@ public class ShopController
 	{
 		_shopService = shopService;
 	}
+
 	[HttpPost]
-	public int AddShop([FromBody]CreateShopDto dto)
+	public CreateShopDto AddShop([FromBody] CreateShopDto dto)
 	{
-		var entityId = _shopService.AddShopAsync(dto).GetAwaiter().GetResult();
-		return entityId;
+		_shopService.AddShop(dto);
+		return dto;
 	}
+	[HttpGet]
+	public IEnumerable<GetShopDto> GetAll()
+	{
+		var entities = _shopService.GetAllShops();
+		return entities;
+	}
+
+	[HttpGet("{id}")]
+	public GetShopDto GetById([FromRoute] int id)
+	{
+		var entity = _shopService.GetById(id);
+		return entity;
+	}
+	
 }

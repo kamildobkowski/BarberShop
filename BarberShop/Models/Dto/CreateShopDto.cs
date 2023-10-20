@@ -4,17 +4,18 @@ namespace BarberShop.Models.Dto;
 
 public class CreateShopDto
 {
-	[Required]
-	public string Name { get; set; }
-	[Required]
-	public string Street { get; set; }
-	[Required]
-	public string City { get; set; }
-	[Required]
+	public int Id { get; set; }
+	
+	public string? Name { get; set; }
+	
+	public string? Street { get; set; }
+	
+	public string? City { get; set; }
+	
 	public int Number { get; set; }
-	[Required]
+	
 	public int ApartamentNumber { get; set; }
-	[Required]
+	
 	public int PostalCode { get; set; }
 	
 }

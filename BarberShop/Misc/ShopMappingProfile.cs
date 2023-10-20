@@ -14,5 +14,11 @@ public class ShopMappingProfile : Profile
 				City = dto.City, PostalCode = dto.PostalCode, Street = dto.Street, Number = dto.Number,
 				ApartamentNumber = dto.ApartamentNumber
 			}));
+		CreateMap<Shop, GetShopDto>()
+			.ForMember(c => c.City, r => r.MapFrom(s => s.Address.City))
+			.ForMember(c => c.Street, r => r.MapFrom(s => s.Address.Street))
+			.ForMember(c => c.Number, r => r.MapFrom(s => s.Address.Number))
+			.ForMember(c => c.ApartamentNumber, r => r.MapFrom(s => s.Address.ApartamentNumber))
+			.ForMember(c => c.PostalCode, r => r.MapFrom(s => s.Address.PostalCode));
 	}
 }
