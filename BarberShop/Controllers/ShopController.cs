@@ -1,4 +1,3 @@
-using BarberShop.Entities.BarberShop;
 using BarberShop.Models.Dto;
 using BarberShop.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -28,12 +27,10 @@ public class ShopController
 		var entities = _shopService.GetAllShops();
 		return entities;
 	}
-
 	[HttpGet("{id}")]
 	public GetShopDto GetById([FromRoute] int id)
 	{
 		var entity = _shopService.GetById(id);
 		return entity;
 	}
-	
 }

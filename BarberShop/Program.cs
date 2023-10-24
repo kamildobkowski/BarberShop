@@ -9,6 +9,7 @@ builder.Services.AddDbContext<BarberShopDbContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IShopService, ShopService>();
 builder.Services.AddSingleton<ILocationService, LocationService>();
+builder.Services.AddScoped<IServicesService, ServicesService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

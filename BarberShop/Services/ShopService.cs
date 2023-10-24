@@ -1,6 +1,3 @@
-using System.Globalization;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 using AutoMapper;
 using BarberShop.Data;
 using BarberShop.Entities.BarberShop;
@@ -22,6 +19,7 @@ public class ShopService : IShopService
 		_locationService = locationService;
 		_dbContext = dbContext;
 	}
+	
 	public int AddShop(CreateShopDto dto)
 	{
 		var entity = _mapper.Map<Shop>(dto);

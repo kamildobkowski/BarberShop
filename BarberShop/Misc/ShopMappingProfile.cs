@@ -20,5 +20,7 @@ public class ShopMappingProfile : Profile
 			.ForMember(c => c.Number, r => r.MapFrom(s => s.Address.Number))
 			.ForMember(c => c.ApartamentNumber, r => r.MapFrom(s => s.Address.ApartamentNumber))
 			.ForMember(c => c.PostalCode, r => r.MapFrom(s => s.Address.PostalCode));
+		CreateMap<CreateServiceDto, Service>();
+		CreateMap<Service, GetServiceDto>();
 	}
 }
