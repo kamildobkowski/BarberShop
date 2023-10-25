@@ -4,7 +4,6 @@ namespace BarberShop.Models.Dto;
 
 public class CreateShopDto
 {
-	public int Id { get; set; }
 	
 	public string? Name { get; set; }
 	
@@ -16,6 +15,6 @@ public class CreateShopDto
 	
 	public int ApartamentNumber { get; set; }
 	
-	public int PostalCode { get; set; }
+	public string? PostalCode { get; set; }
 	
 }

@@ -9,4 +9,6 @@ public class Review
 	[Required]
 	[Range(1,5)]
 	public int Stars { get; set; }
+	public int ShopId { get; set; }
+	public virtual Shop Shop { get; set; }
 }

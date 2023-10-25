@@ -20,12 +20,12 @@ public class ShopService : IShopService
 		_dbContext = dbContext;
 	}
 	
-	public int AddShop(CreateShopDto dto)
+	public async Task<int> AddShop(CreateShopDto dto)
 	{
 		var entity = _mapper.Map<Shop>(dto);
-		_locationService.GetCoordinates(entity.Address);
-		_dbContext.Shops.Add(entity);
-		_dbContext.SaveChanges();
+		await _locationService.GetCoordinates(entity.Address);
+		await _dbContext.Shops.AddAsync(entity);
+		await _dbContext.SaveChangesAsync();
 		return entity.Id;
 	}
 
@@ -43,7 +43,9 @@ public class ShopService : IShopService
 
 	public GetShopDto GetById(int id)
 	{
-		var entity = _dbContext.Shops.FirstOrDefault(r => r.Id == id);
+		var entity = _dbContext.Shops
+			.Include(r=> r.Address)
+			.FirstOrDefault(r => r.Id == id);
 		var dto = _mapper.Map<GetShopDto>(entity);
 		return dto;
 	}

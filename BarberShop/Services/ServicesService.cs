@@ -28,20 +28,19 @@ public class ServicesService : IServicesService
 		return dto;
 	}
 
-	public IEnumerable<Service> GetAll(int shopId)
+	public IEnumerable<GetServiceDto> GetAll(int shopId)
 	{
 		var services = _dbContext.Services.ToList();
 		var entities = from s in services
 			where s.ShopId == shopId
 			select s;
-		var enumerable = entities.ToList();
-		if (enumerable.IsNullOrEmpty()) 
+		if (entities.IsNullOrEmpty()) 
 			throw new NotFoundException();
-
-		return enumerable;
+		var result = _mapper.Map<IEnumerable<GetServiceDto>>(entities);
+		return result;
 	}
 
-	public void Add(int shopId, CreateServiceDto dto)
+	public int Add(int shopId, CreateServiceDto dto)
 	{
 		var shop = _dbContext.Shops.FirstOrDefault(c => c.Id == shopId);
 		if (shop is null)
@@ -50,5 +49,6 @@ public class ServicesService : IServicesService
 		entity.ShopId = shopId;
 		_dbContext.Services.Add(entity);
 		_dbContext.SaveChanges();
+		return entity.Id;
 	}
 }

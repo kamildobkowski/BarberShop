@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.Controllers;
 
-[Route("api")]
+[Route("api/shop")]
 [ApiController]
-public class ShopController
+public class ShopController : ControllerBase
 {
 	private readonly IShopService _shopService;
 
@@ -16,21 +16,21 @@ public class ShopController
 	}
 
 	[HttpPost]
-	public CreateShopDto AddShop([FromBody] CreateShopDto dto)
+	public ActionResult AddShop([FromBody] CreateShopDto dto)
 	{
-		_shopService.AddShop(dto);
-		return dto;
+		var id = _shopService.AddShop(dto).GetAwaiter().GetResult();
+		return Created($"/api/shop/{id}", null);
 	}
 	[HttpGet]
-	public IEnumerable<GetShopDto> GetAll()
+	public ActionResult<IEnumerable<GetShopDto>> GetAll()
 	{
 		var entities = _shopService.GetAllShops();
-		return entities;
+		return Ok(entities);
 	}
 	[HttpGet("{id}")]
-	public GetShopDto GetById([FromRoute] int id)
+	public ActionResult<GetShopDto> GetById([FromRoute] int id)
 	{
 		var entity = _shopService.GetById(id);
-		return entity;
+		return Ok(entity);
 	}
 }

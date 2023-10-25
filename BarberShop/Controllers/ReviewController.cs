@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace BarberShop.Controllers;
 
-public class ReviewController
+[Route("/api/shop/{shopId}/reviews")]
+public class ReviewController : ControllerBase
 {
 	
 }

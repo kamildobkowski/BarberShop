@@ -6,6 +6,6 @@ namespace BarberShop.Services.Interfaces;
 public interface IServicesService
 {
 	GetServiceDto GetById(int shopId, int serviceId);
-	IEnumerable<Service> GetAll(int shopId);
-	void Add(int shopId, CreateServiceDto dto);
+	IEnumerable<GetServiceDto> GetAll(int shopId);
+	int Add(int shopId, CreateServiceDto dto);
 }

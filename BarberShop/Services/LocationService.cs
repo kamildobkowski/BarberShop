@@ -15,15 +15,15 @@ public class LocationService : ILocationService
 		_apiKey = configuration["LocationApiKey:Key"];
 		if (_apiKey is null) throw new JsonException();
 	}
-	public void GetCoordinates(Address address)
+	public async Task GetCoordinates(Address address)
 	{
 		var client = new HttpClient();
-		var addressToString = Uri.EscapeDataString($"{address.Street} {address.Number} {address.City}");
+		var addressToString = Uri.EscapeDataString($"{address.Street} {address.Number} {address.PostalCode} {address.City}");
 		var requestUrl =
 			$"https://us1.locationiq.com/v1/search?key={_apiKey}&q={addressToString}&format=json&";
-		var request = client.GetAsync(requestUrl).GetAwaiter().GetResult();
+		var request = await client.GetAsync(requestUrl);
 		if (request is null) throw new JsonException();
-		var requestBody = request.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+		var requestBody = await request.Content.ReadAsStringAsync();
 		
 		
 		try
@@ -37,7 +37,7 @@ public class LocationService : ILocationService
 		}
 		catch (ArgumentNullException e)
 		{
-			Console.Out.Write("couldn't parse location!");
+			await Console.Out.WriteAsync("couldn't parse location!");
 		}
 	}
 

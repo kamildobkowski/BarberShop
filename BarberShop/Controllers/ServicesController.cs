@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.Controllers;
 
-[Route($"api/{{shopId}}/services")]
-[Controller]
+[Route($"api/{{shopId}}/service")]
+[ApiController]
 public class ServicesController : ControllerBase
 {
 	private readonly IServicesService _service;
@@ -17,22 +17,23 @@ public class ServicesController : ControllerBase
 	}
 
 	[HttpGet]
-	public IEnumerable<Service>? GetAll([FromRoute] int shopId)
+	public ActionResult<IEnumerable<GetServiceDto>?> GetAll([FromRoute] int shopId)
 	{
 		var entities = _service.GetAll(shopId);
-		return entities;
+		return Ok(entities);
 	}
 
 	[HttpGet("{id}")]
-	public GetServiceDto Get([FromRoute] int shopId, [FromRoute] int id)
+	public ActionResult<GetServiceDto> Get([FromRoute] int shopId, [FromRoute] int id)
 	{
 		var entity = _service.GetById(shopId, id);
-		return entity;
+		return Ok(entity);
 	}
 
 	[HttpPost]
-	public void Add([FromRoute] int shopId, [FromBody] CreateServiceDto dto)
+	public ActionResult Add([FromRoute] int shopId, [FromBody] CreateServiceDto dto)
 	{
-		_service.Add(shopId, dto);
+		var entityId = _service.Add(shopId, dto);
+		return Created($"/api/{shopId}/service/{entityId}", null);
 	}
 }
