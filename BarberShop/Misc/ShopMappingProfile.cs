@@ -25,5 +25,6 @@ public class ShopMappingProfile : Profile
 		CreateMap<CreateServiceDto, Service>();
 		CreateMap<Service, GetServiceDto>();
 		CreateMap<Review, GetReviewDto>();
+		CreateMap<CreateReviewDto, Review>();
 	}
 }

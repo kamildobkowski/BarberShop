@@ -41,8 +41,12 @@ public class ReviewService : IReviewService
 	public int AddReview(int shopId, CreateReviewDto dto)
 	{
 		var entity = _mapper.Map<Review>(dto);
+		var shopEntity = _dbContext.Shops.FirstOrDefault(r => r.Id == shopId);
+		if (shopEntity is null)
+			throw new NotFoundException("Shop not found!");
 		if (entity is null)
 			throw new ArgumentException("Review cannot be null!");
+		entity.ShopId = shopId;
 		_dbContext.Reviews.Add(entity);
 		_dbContext.SaveChanges();
 		return entity.Id;
@@ -55,5 +59,6 @@ public class ReviewService : IReviewService
 		if (entity is null)
 			throw new NotFoundException("Review has not been found!");
 		_dbContext.Reviews.Remove(entity);
+		_dbContext.SaveChanges();
 	}
 }

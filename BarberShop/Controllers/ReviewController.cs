@@ -21,7 +21,7 @@ public class ReviewController : ControllerBase
 		return Ok(entities);
 	}
 
-	[HttpPost("{id}")]
+	[HttpGet("{id}")]
 	public ActionResult<GetReviewDto> Get([FromRoute] int shopId, [FromRoute] int id)
 	{
 		var entity = _service.GetById(shopId, id);
@@ -33,5 +33,12 @@ public class ReviewController : ControllerBase
 	{
 		var id = _service.AddReview(shopId, dto);
 		return Created($"/api/shop/{shopId}/reviews/{id}", null);
+	}
+
+	[HttpDelete("{id}")]
+	public ActionResult Delete([FromRoute] int shopId, [FromRoute] int id)
+	{
+		_service.DeleteReview(shopId, id);
+		return NoContent();
 	}
 }

@@ -7,7 +7,7 @@ public class GetShopDto
 	public int Id { get; set; }
 	public string Name { get; set; }
 	public List<GetServiceDto>? Services { get; set; }
-	public List<Review>? Reviews { get; set; }
+	public List<GetReviewDto>? Reviews { get; set; }
 	public string Street { get; set; }
 	public string City { get; set; }
 	public int Number { get; set; }
