@@ -1,4 +1,5 @@
 using BarberShop.Data;
+using BarberShop.Middleware;
 using BarberShop.Services;
 using BarberShop.Services.Interfaces;
 
@@ -10,7 +11,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IShopService, ShopService>();
 builder.Services.AddSingleton<ILocationService, LocationService>();
 builder.Services.AddScoped<IServicesService, ServicesService>();
-
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -18,7 +20,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

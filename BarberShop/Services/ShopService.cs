@@ -2,6 +2,7 @@ using AutoMapper;
 using BarberShop.Data;
 using BarberShop.Entities.BarberShop;
 using BarberShop.Models.Dto;
+using BarberShop.Models.Exceptions;
 using BarberShop.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,5 +51,28 @@ public class ShopService : IShopService
 		return dto;
 	}
 
-	
+	public void DeleteShop(int shopId)
+	{
+		var entity = _dbContext.Shops.FirstOrDefault(r => r.Id == shopId);
+		if (entity is null)
+			throw new NotFoundException();
+		_dbContext.Shops.Remove(entity);
+		_dbContext.SaveChanges();
+	}
+
+	public void Update(int id, CreateShopDto dto)
+	{
+		var entity = _dbContext.Shops.Include(shop => shop.Address).FirstOrDefault(r => r.Id == id);
+		if (entity is null)
+			throw new NotFoundException();
+		var updated = _mapper.Map<Shop>(dto);
+		_locationService.GetCoordinates(updated.Address).GetAwaiter().GetResult();
+		if (updated.Address is not null)
+		{
+			_dbContext.Addresses.Remove(entity.Address);
+			entity.Address = updated.Address;
+		}
+		if(updated.Name is not null) entity.Name = updated.Name;
+		_dbContext.SaveChanges();
+	}
 }

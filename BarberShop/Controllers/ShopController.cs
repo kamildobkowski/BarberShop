@@ -33,4 +33,18 @@ public class ShopController : ControllerBase
 		var entity = _shopService.GetById(id);
 		return Ok(entity);
 	}
+
+	[HttpDelete("{id}")]
+	public ActionResult Delete([FromRoute] int id)
+	{
+		_shopService.DeleteShop(id);
+		return NoContent();
+	}
+
+	[HttpPut("{id}")]
+	public ActionResult Update([FromRoute] int id, [FromBody] CreateShopDto dto)
+	{
+		_shopService.Update(id, dto);
+		return Ok();
+	}
 }

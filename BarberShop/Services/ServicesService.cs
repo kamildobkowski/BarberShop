@@ -51,4 +51,31 @@ public class ServicesService : IServicesService
 		_dbContext.SaveChanges();
 		return entity.Id;
 	}
+
+	public void Delete(int shopId, int id)
+	{
+		var entity = _dbContext.Services
+			.FirstOrDefault(r => r.Id == id && r.ShopId == shopId);
+		if (entity is null)
+			throw new NotFoundException("Service not found!");
+		_dbContext.Services.Remove(entity);
+		_dbContext.SaveChanges();
+	}
+
+	public void Update(int shopId, int id, CreateServiceDto dto)
+	{
+		var entity = _dbContext.Services
+			.FirstOrDefault(r => r.Id == id && r.ShopId == shopId);
+		if (entity is null)
+			throw new NotFoundException("Service not found!");
+		var newEntity = _mapper.Map<Service>(dto);
+		if (newEntity.Name is not null)
+			entity.Name = newEntity.Name;
+		if (!newEntity.Duration.Duration().Equals(TimeSpan.Zero))
+			entity.Duration = newEntity.Duration;
+		if (newEntity.Price != 0m)
+			entity.Price = newEntity.Price;
+
+		_dbContext.SaveChanges();
+	}
 }

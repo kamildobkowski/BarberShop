@@ -1,4 +1,3 @@
-using BarberShop.Entities.BarberShop;
 using BarberShop.Models.Dto;
 using BarberShop.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -35,5 +34,19 @@ public class ServicesController : ControllerBase
 	{
 		var entityId = _service.Add(shopId, dto);
 		return Created($"/api/{shopId}/service/{entityId}", null);
+	}
+
+	[HttpDelete("{id}")]
+	public ActionResult Delete([FromRoute] int shopId, [FromRoute] int id)
+	{
+		_service.Delete(shopId, id);
+		return NoContent();
+	}
+
+	[HttpPut("{id}")]
+	public ActionResult Update([FromRoute] int shopId, [FromRoute] int id, [FromBody] CreateServiceDto dto)
+	{
+		_service.Update(shopId, id, dto);
+		return Ok();
 	}
 }

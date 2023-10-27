@@ -1,4 +1,3 @@
-using BarberShop.Entities;
 using BarberShop.Entities.BarberShop;
 using Microsoft.EntityFrameworkCore;
 

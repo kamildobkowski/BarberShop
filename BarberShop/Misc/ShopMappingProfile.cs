@@ -24,5 +24,6 @@ public class ShopMappingProfile : Profile
 			.ForMember(c => c.Longitude, r => r.MapFrom(s => s.Address.Longitude));
 		CreateMap<CreateServiceDto, Service>();
 		CreateMap<Service, GetServiceDto>();
+		CreateMap<Review, GetReviewDto>();
 	}
 }
