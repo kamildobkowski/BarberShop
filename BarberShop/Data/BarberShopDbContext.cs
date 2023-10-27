@@ -1,3 +1,4 @@
+using BarberShop.Entities.Auth;
 using BarberShop.Entities.BarberShop;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ public class BarberShopDbContext : DbContext
 	public DbSet<Review> Reviews { get; set; }
 	public DbSet<Service> Services { get; set; }
 	public DbSet<Address> Addresses { get; set; }
+	public DbSet<User> Users { get; set; }
 	
 	public BarberShopDbContext(IConfiguration config)
 	{
