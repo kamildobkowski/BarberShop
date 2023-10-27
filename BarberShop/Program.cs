@@ -1,10 +1,32 @@
+using System.Text;
+using BarberShop;
 using BarberShop.Data;
 using BarberShop.Middleware;
 using BarberShop.Services;
 using BarberShop.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var authenticationSettings = new AuthenticationSettings();
+builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+builder.Services.AddAuthentication(option =>
+{
+	option.DefaultAuthenticateScheme = "Bearer";
+	option.DefaultScheme = "Bearer";
+	option.DefaultChallengeScheme = "Bearer";
+}).AddJwtBearer(cfg =>
+{
+	cfg.RequireHttpsMetadata = false;
+	cfg.SaveToken = true;
+	cfg.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidIssuer = authenticationSettings.JwtIssuer,
+		ValidAudience = authenticationSettings.JwtIssuer,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+	};
+});
 // Add services to the container.
 builder.Services.AddDbContext<BarberShopDbContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
