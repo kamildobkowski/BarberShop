@@ -1,4 +1,5 @@
 using AutoMapper;
+using BarberShop.Entities.Auth;
 using BarberShop.Entities.BarberShop;
 using BarberShop.Models.Dto;
 
@@ -26,5 +27,6 @@ public class ShopMappingProfile : Profile
 		CreateMap<Service, GetServiceDto>();
 		CreateMap<Review, GetReviewDto>();
 		CreateMap<CreateReviewDto, Review>();
+		CreateMap<CreateUserDto, User>();
 	}
 }

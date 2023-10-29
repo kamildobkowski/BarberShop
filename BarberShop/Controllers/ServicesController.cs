@@ -43,7 +43,7 @@ public class ServicesController : ControllerBase
 		return NoContent();
 	}
 
-	[HttpPut("{id}")]
+	[HttpPatch("{id}")]
 	public ActionResult Update([FromRoute] int shopId, [FromRoute] int id, [FromBody] CreateServiceDto dto)
 	{
 		_service.Update(shopId, id, dto);

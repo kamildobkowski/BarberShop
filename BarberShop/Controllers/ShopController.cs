@@ -41,7 +41,7 @@ public class ShopController : ControllerBase
 		return NoContent();
 	}
 
-	[HttpPut("{id}")]
+	[HttpPatch("{id}")]
 	public ActionResult Update([FromRoute] int id, [FromBody] CreateShopDto dto)
 	{
 		_shopService.Update(id, dto);
