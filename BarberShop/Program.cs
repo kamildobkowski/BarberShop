@@ -1,10 +1,10 @@
 using System.Text;
 using BarberShop;
-using BarberShop.Data;
-using BarberShop.Entities.Auth;
-using BarberShop.Middleware;
-using BarberShop.Services;
-using BarberShop.Services.Interfaces;
+using BarberShop.Accounts.Entities;
+using BarberShop.Shared.Data;
+using BarberShop.Shared.Middleware;
+using BarberShop.Shops.Services;
+using BarberShop.Shops.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
