@@ -4,40 +4,29 @@ using System.Text;
 using AutoMapper;
 using BarberShop.Accounts.Entities;
 using BarberShop.Accounts.Models.Dto;
-using BarberShop.Accounts.Services.Interfaces;
 using BarberShop.Shared.Data;
 using BarberShop.Shared.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BarberShop.Accounts.Services;
+namespace BarberShop.Accounts.Services.Queries;
 
-public class AccountService : IAccountService
+
+
+public class LoginService : ILoginService
 {
 	private readonly BarberShopDbContext _dbContext;
 	private readonly IMapper _mapper;
 	private readonly IPasswordHasher<User> _hasher;
 	private readonly AuthenticationSettings _authenticationSettings;
 
-	public AccountService(BarberShopDbContext dbContext, IMapper mapper, IPasswordHasher<User> hasher, AuthenticationSettings authenticationSettings)
+	public LoginService(BarberShopDbContext dbContext, IMapper mapper, IPasswordHasher<User> hasher, AuthenticationSettings authenticationSettings)
 	{
 		_dbContext = dbContext;
 		_mapper = mapper;
 		_hasher = hasher;
 		_authenticationSettings = authenticationSettings;
 	}
-
-	public void Register(CreateCustomerDto dto)
-	{
-		var entity = _mapper.Map<User>(dto);
-		if (entity is null)
-			throw new ArgumentException();
-		var hash = _hasher.HashPassword(entity, dto.Password);
-		entity.PasswordHash = hash;
-		_dbContext.Users.Add(entity);
-		_dbContext.SaveChanges();
-	}
-
 	public string GenerateJwt(LoginDto dto)
 	{
 		var user = _dbContext.Users.FirstOrDefault(r => r.Email == dto.Email);

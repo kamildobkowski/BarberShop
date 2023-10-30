@@ -1,6 +1,8 @@
 using System.Text;
 using BarberShop;
 using BarberShop.Accounts.Entities;
+using BarberShop.Accounts.Services.Commands;
+using BarberShop.Accounts.Services.Queries;
 using BarberShop.Shared.Data;
 using BarberShop.Shared.Middleware;
 using BarberShop.Shops.Services;
@@ -38,6 +40,8 @@ builder.Services.AddScoped<IServicesService, ServicesService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<ICreateAccountService, CreateAccountService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

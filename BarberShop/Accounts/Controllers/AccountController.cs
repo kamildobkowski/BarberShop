@@ -1,5 +1,6 @@
 using BarberShop.Accounts.Models.Dto;
-using BarberShop.Accounts.Services.Interfaces;
+using BarberShop.Accounts.Services.Commands;
+using BarberShop.Accounts.Services.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.Accounts.Controllers;
@@ -8,24 +9,26 @@ namespace BarberShop.Accounts.Controllers;
 [ApiController]
 public class AccountController : ControllerBase
 {
-	private readonly IAccountService _accountService;
+	private readonly ICreateAccountService _createAccountService;
+	private readonly ILoginService _loginService;
 
-	public AccountController(IAccountService accountService)
+	public AccountController(ICreateAccountService createAccountService, ILoginService loginService)
 	{
-		_accountService = accountService;
+		_createAccountService = createAccountService;
+		_loginService = loginService;
 	}
 
 	[HttpGet("login")]
 	public ActionResult<string> Login(LoginDto dto)
 	{
-		var token = _accountService.GenerateJwt(dto);
+		var token = _loginService.GenerateJwt(dto);
 		return Ok(token);
 	}
 
 	[HttpPost("register")]
 	public ActionResult Register(CreateCustomerDto dto)
 	{
-		_accountService.Register(dto);
+		_createAccountService.Register(dto);
 		return Ok();
 	}
 	
