@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+      <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+      <PackageReference Include="MediatR" Version="12.1.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\Exceptions\" />
+      <Folder Include="Common\Mapping\" />
+      <Folder Include="Interfaces\" />
+      <Folder Include="Services\BarberServices\Commands\" />
+      <Folder Include="Services\BarberServices\Queries\" />
+      <Folder Include="Services\Reviews\Commands\" />
+      <Folder Include="Services\Reviews\Queries\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BarberShop.Domain\BarberShop.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
