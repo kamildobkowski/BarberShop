@@ -1,7 +1,7 @@
 using BarberShop.Application.Interfaces.Repositories;
 using MediatR;
 
-namespace BarberShop.Application.Services.Shops.Commands;
+namespace BarberShop.Application.Services.BarberServices.Commands;
 
 public record DeleteServiceCommand(int ShopId, int Id) : IRequest;
 

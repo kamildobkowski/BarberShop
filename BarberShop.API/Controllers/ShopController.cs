@@ -51,4 +51,11 @@ public class ShopController : ControllerBase
 			UpdateShopAddressDto = dto
 		});
 	}
+
+	[HttpDelete("{id}")]
+	public async Task<ActionResult> Delete([FromRoute] int id)
+	{
+		await _mediator.Send(new DeleteShopCommand(id));
+		return NoContent();
+	}
 }

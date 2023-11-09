@@ -43,4 +43,11 @@ public class ServiceController : ControllerBase
 		await _mediator.Send(new DeleteServiceCommand(shopId, id));
 		return NoContent();
 	}
+
+	[HttpPatch("{id}")]
+	public async Task<ActionResult> UpdatePrice([FromRoute] int shopId, [FromRoute] int id,[FromBody] decimal newPrice)
+	{
+		await _mediator.Send(new UpdateServicePriceCommand(shopId, id, newPrice));
+		return Ok();
+	}
 }
