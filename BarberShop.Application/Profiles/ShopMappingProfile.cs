@@ -21,7 +21,7 @@ public class ShopMappingProfile : Profile
 				City = s.City,
 				PostalCode = s.PostalCode
 			}));
-		CreateMap<Review, ReviewDto>();
+		
 		CreateMap<Shop, ShopDto>()
 			.ForMember(c => c.City, r => r.MapFrom(s => s.Address.City))
 			.ForMember(c => c.Number, r => r.MapFrom(s => s.Address.Number))

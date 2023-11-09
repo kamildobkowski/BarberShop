@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace BarberShop.Application.Dto.Reviews;
 
-public class ReviewDto
+public record CreateReviewDto
 {
-	public int Id { get; set; }
 	public string? Description { get; set; }
+	[Range(1,5)]
 	public int Rating { get; set; }
 }

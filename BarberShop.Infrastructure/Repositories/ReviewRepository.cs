@@ -65,4 +65,12 @@ public class ReviewRepository : IReviewRepository
 		_dbContext.Reviews.Add(entity);
 		await _dbContext.SaveChangesAsync();
 	}
+
+	public async Task<IEnumerable<Review>> GetByShopId(int shopId)
+	{
+		var entities = await _dbContext.Reviews
+			.Where(r => r.ShopId == shopId)
+			.ToListAsync();
+		return entities;
+	}
 }

@@ -17,8 +17,6 @@
       <Folder Include="Common\Exceptions\" />
       <Folder Include="Common\Mapping\" />
       <Folder Include="Interfaces\" />
-      <Folder Include="Services\Reviews\Commands\" />
-      <Folder Include="Services\Reviews\Queries\" />
     </ItemGroup>
 
     <ItemGroup>
