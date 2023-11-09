@@ -12,8 +12,10 @@ public static class DependencyInjection
 {
 	public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 	{
-		services.AddDbContext<BarberShopDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("Docker")));
+		services.AddDbContext<BarberShopDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("Docker")), ServiceLifetime.Scoped);
 		services.AddScoped<IShopRepository, ShopRepository>();
+		services.AddScoped<IBarberServiceRepository, BarberServiceRepository>();
+		services.AddScoped<IReviewRepository, ReviewRepository>();
 		services.AddSingleton<ILocationService, LocationService>();
 	}
 }

@@ -5,6 +5,7 @@ namespace BarberShop.Application.Dto.Shops;
 
 public class ShopDto
 {
+	public int Id { get; set; }
 	public string Name { get; set; } = default!;
 	public List<BarberServiceDto> Services { get; set; } = default!;
 	public List<ReviewDto> Reviews { get; set; } = default!;

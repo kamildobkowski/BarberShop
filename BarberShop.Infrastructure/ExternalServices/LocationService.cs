@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using BarberShop.Domain.Entites;
+using BarberShop.Domain.ValueObjects;
 using Microsoft.Extensions.Configuration;
 
 namespace BarberShop.Infrastructure.ExternalServices;

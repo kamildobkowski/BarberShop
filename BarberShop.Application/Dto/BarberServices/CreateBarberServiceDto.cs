@@ -1,8 +1,7 @@
 namespace BarberShop.Application.Dto.BarberServices;
 
-public record BarberServiceDto
+public record CreateBarberServiceDto
 {
-	public int Id { get; set; }
 	public string Name { get; set; } = default!;
 	public string? Description { get; set; }
 	public decimal? Price { get; set; }

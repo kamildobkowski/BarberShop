@@ -4,6 +4,7 @@ using BarberShop.Application.Dto.BarberServices;
 using BarberShop.Application.Dto.Reviews;
 using BarberShop.Application.Dto.Shops;
 using BarberShop.Domain.Entites;
+using BarberShop.Domain.ValueObjects;
 
 namespace BarberShop.Application.Profiles;
 
@@ -20,7 +21,6 @@ public class ShopMappingProfile : Profile
 				City = s.City,
 				PostalCode = s.PostalCode
 			}));
-		CreateMap<BarberService, BarberServiceDto>();
 		CreateMap<Review, ReviewDto>();
 		CreateMap<Shop, ShopDto>()
 			.ForMember(c => c.City, r => r.MapFrom(s => s.Address.City))
@@ -30,5 +30,9 @@ public class ShopMappingProfile : Profile
 			.ForMember(c => c.PostalCode, r => r.MapFrom(s => s.Address.PostalCode))
 			.ForMember(c => c.Latitude, r => r.MapFrom(s => s.Address.Latitude))
 			.ForMember(c => c.Longitude, r => r.MapFrom(s => s.Address.Longitude));
+		CreateMap<UpdateShopDto, Shop>()
+			.ForAllMembers(r=>r.Condition((src, dest, srcValue) => srcValue != null));
+		CreateMap<UpdateShopAddressDto, Address>()
+			.ForAllMembers(r=>r.Condition((src, dest, val)=>val!=null));
 	}
 }

@@ -6,14 +6,13 @@ namespace BarberShop.Infrastructure.Persistence;
 public class BarberShopDbContext : DbContext
 {
 	
-	public BarberShopDbContext(DbContextOptions<BarberShopDbContext> dbContextOptions)
+	public BarberShopDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
 	{
 		
 	}
-	public DbSet<Shop?> Shops { get; set; }
-	public DbSet<BarberService> Services { get; set; }
-	public DbSet<Review> Reviews { get; set; }
-	public DbSet<Address> Addresses { get; set; }
+	public DbSet<Shop> Shops { get; set; } = default!;
+	public DbSet<BarberService> Services { get; set; } = default!;
+	public DbSet<Review> Reviews { get; set; } = default!;
 	public Task<int> SaveChangesAsync()
 	{
 		return base.SaveChangesAsync();

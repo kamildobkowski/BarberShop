@@ -1,5 +1,6 @@
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites;
+using BarberShop.Domain.Exceptions;
 using BarberShop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +14,15 @@ public class BarberServiceRepository : IBarberServiceRepository
 	{
 		_dbContext = dbContext;
 	}
-	public async Task<BarberService?> GetByIdAsync(int id)
+	public async Task<BarberService> GetByIdAsync(int id)
 	{
-		return await _dbContext.Services.FirstOrDefaultAsync(r => r.Id == id);
+		var entity = await _dbContext.Services.FirstOrDefaultAsync(r => r.Id == id);
+		if (entity is null)
+			throw new NotFoundException();
+		return entity;
 	}
 
-	public async Task<IEnumerable<BarberService?>?> GetAllAsync()
+	public async Task<IEnumerable<BarberService>> GetAllAsync()
 	{
 		return await _dbContext.Services.ToListAsync();
 	}
@@ -29,10 +33,11 @@ public class BarberServiceRepository : IBarberServiceRepository
 		await _dbContext.SaveChangesAsync();
 	}
 
-	public async Task AddAsync(BarberService entity)
+	public async Task<int> AddAsync(BarberService entity)
 	{
 		_dbContext.Services.Add(entity);
 		await _dbContext.SaveChangesAsync();
+		return entity.Id;
 	}
 
 	public Task UpdateAsync(BarberService entity)
@@ -40,20 +45,37 @@ public class BarberServiceRepository : IBarberServiceRepository
 		throw new NotImplementedException();
 	}
 
-	public async Task<BarberService?> GetByIdAsync(int shopId, int id)
+	public async Task SaveChangesAsync()
 	{
-		return await _dbContext.Services
-			.FirstOrDefaultAsync(r => r.Id == id && r.ShopId == shopId);
+		await _dbContext.SaveChangesAsync();
 	}
 
-	public async Task AddAsync(BarberService entity, int shopId)
+	public async Task<BarberService> GetByIdAsync(int shopId, int id)
+	{
+		var entity = await _dbContext.Services
+			.FirstOrDefaultAsync(r => r.Id == id && r.ShopId == shopId);
+		if (entity is null)
+			throw new NotFoundException();
+		return entity;
+	}
+
+	public async Task<int> AddAsync(BarberService entity, int shopId)
 	{
 		var shop = _dbContext.Shops
 			.FirstOrDefaultAsync(r => r.Id == shopId);
 		if (shop is null)
-			throw new Exception();
+			throw new NotFoundException();
 		entity.ShopId = shopId;
 		_dbContext.Services.Add(entity);
 		await _dbContext.SaveChangesAsync();
+		return entity.Id;
+	}
+
+	public async Task<IEnumerable<BarberService>> GetAllByShopIdAsync(int shopId)
+	{
+		var shops = await _dbContext.Services
+			.Where(r => r.ShopId == shopId)
+			.ToListAsync();
+		return shops;
 	}
 }
