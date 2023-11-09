@@ -44,5 +44,12 @@ public class ReviewController : ControllerBase
 		await _mediator.Send(new DeleteReviewCommand(shopId, id));
 		return NoContent();
 	}
+
+	[HttpPatch("{id}")]
+	public async Task<ActionResult> Update([FromRoute] int shopId, [FromRoute] int id, [FromBody] UpdateReviewDto dto)
+	{
+		await _mediator.Send(new UpdateReviewCommand(shopId, id, dto));
+		return Ok();
+	}
 	
 }
