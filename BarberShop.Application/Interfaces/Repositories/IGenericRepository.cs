@@ -9,6 +9,5 @@ public interface IGenericRepository<T>
 	Task<IEnumerable<T>> GetAllAsync();
 	Task DeleteAsync(T entity);
 	Task<int> AddAsync(T entity);
-	Task UpdateAsync(T entity);
 	Task SaveChangesAsync();
 }
