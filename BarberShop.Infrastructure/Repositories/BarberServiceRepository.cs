@@ -61,7 +61,7 @@ public class BarberServiceRepository : IBarberServiceRepository
 
 	public async Task<int> AddAsync(BarberService entity, int shopId)
 	{
-		var shop = _dbContext.Shops
+		var shop = await _dbContext.Shops
 			.FirstOrDefaultAsync(r => r.Id == shopId);
 		if (shop is null)
 			throw new NotFoundException();

@@ -14,8 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Common\Exceptions\" />
-      <Folder Include="Common\Mapping\" />
       <Folder Include="Interfaces\" />
     </ItemGroup>
 
