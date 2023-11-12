@@ -4,10 +4,7 @@ using MediatR;
 
 namespace BarberShop.Application.Services.Shops.Queries;
 
-public record GetShopQuery : IRequest<Shop?>
-{
-	public int ShopId { get; set; }
-}
+public record GetShopQuery(int ShopId) : IRequest<Shop?>;
 
 internal class GetShopQueryHandler : IRequestHandler<GetShopQuery, Shop?>
 {

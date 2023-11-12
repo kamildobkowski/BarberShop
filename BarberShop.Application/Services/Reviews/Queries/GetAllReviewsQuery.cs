@@ -2,6 +2,7 @@ using AutoMapper;
 using BarberShop.Application.Dto.Reviews;
 using BarberShop.Application.Interfaces.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Application.Services.Reviews.Queries;
 
@@ -19,7 +20,10 @@ internal class GetAllReviewsQueryHandler : IRequestHandler<GetAllReviewsQuery, I
 	}
 	public async Task<IEnumerable<ReviewDto>> Handle(GetAllReviewsQuery request, CancellationToken cancellationToken)
 	{
-		var entites = await _repository.GetByShopId(request.ShopId);
+		var entites = await _repository
+			.GetQueryable()
+			.Where(r=>r.ShopId==request.ShopId)
+			.ToListAsync(cancellationToken: cancellationToken);
 		var dtos = _mapper.Map<IEnumerable<ReviewDto>>(entites);
 		return dtos;
 	}

@@ -2,6 +2,7 @@ using AutoMapper;
 using BarberShop.Application.Dto.BarberServices;
 using BarberShop.Application.Interfaces.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Application.Services.BarberServices.Queries;
 
@@ -19,7 +20,7 @@ internal class GetAllServicesQueryHandler : IRequestHandler<GetAllServicesQuery,
 	}
 	public async Task<IEnumerable<BarberServiceDto>> Handle(GetAllServicesQuery request, CancellationToken cancellationToken)
 	{
-		var entites = await _repository.GetAllByShopIdAsync(request.ShopId);
+		var entites = await _repository.GetQueryable().Where(r => r.ShopId == request.ShopId).ToListAsync(cancellationToken: cancellationToken);
 		var dtos = _mapper.Map<IEnumerable<BarberServiceDto>>(entites);
 		return dtos;
 	}

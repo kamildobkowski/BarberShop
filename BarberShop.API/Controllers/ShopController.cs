@@ -23,6 +23,13 @@ public class ShopController : ControllerBase
 		return Ok(entites);
 	}
 
+	[HttpGet("{id}")]
+	public async Task<IActionResult> GetById([FromRoute] int id)
+	{
+		var entity = await _mediator.Send(new GetShopQuery(id));
+		return Ok(entity);
+	}
+
 	[HttpPost]
 	public async Task Add(CreateShopDto dto)
 	{

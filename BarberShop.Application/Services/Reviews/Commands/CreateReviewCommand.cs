@@ -21,7 +21,8 @@ internal class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand,
 	public async Task<int> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
 	{
 		var entity = _mapper.Map<Review>(request.Dto);
-		await _repository.AddAsync(entity, request.ShopId);
+		_repository.Add(entity);
+		await _repository.SaveChangesAsync();
 		return entity.Id;
 	}
 }

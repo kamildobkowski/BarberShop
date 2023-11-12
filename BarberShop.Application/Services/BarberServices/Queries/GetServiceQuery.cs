@@ -19,7 +19,8 @@ internal class GetServiceQueryHandler : IRequestHandler<GetServiceQuery, BarberS
 	}
 	public async Task<BarberServiceDto> Handle(GetServiceQuery request, CancellationToken cancellationToken)
 	{
-		var entity = await _repository.GetByIdAsync(request.ShopId, request.Id);
+		var entity = await _repository
+			.GetAsync(r=>r.ShopId==request.ShopId && r.Id==request.Id);
 		var dto = _mapper.Map<BarberServiceDto>(entity);
 		return dto;
 	}

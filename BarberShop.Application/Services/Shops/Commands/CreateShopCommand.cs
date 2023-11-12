@@ -24,6 +24,7 @@ public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand>
 	public async Task Handle(CreateShopCommand request, CancellationToken cancellationToken)
 	{
 		var entity = _mapper.Map<Shop>(request.CreateShopDto);
-		await _shopRepository.AddAsync(entity);
+		_shopRepository.Add(entity);
+		await _shopRepository.SaveChangesAsync();
 	}
 }

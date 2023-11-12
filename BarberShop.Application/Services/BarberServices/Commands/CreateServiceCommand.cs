@@ -22,7 +22,8 @@ internal class CreateServiceCommandHandler : IRequestHandler<CreateServiceComman
 	public async Task<int> Handle(CreateServiceCommand request, CancellationToken cancellationToken)
 	{
 		var entity = _mapper.Map<BarberService>(request.Dto);
-		var id = await _repository.AddAsync(entity, request.ShopId);
-		return id;
+		_repository.Add(entity);
+		await _repository.SaveChangesAsync();
+		return entity.Id;
 	}
 }

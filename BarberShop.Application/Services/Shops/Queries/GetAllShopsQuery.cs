@@ -7,12 +7,9 @@ using MediatR;
 
 namespace BarberShop.Application.Services.Shops.Queries;
 
-public class GetAllShopsQuery : IRequest<IEnumerable<ShopDto?>?>
-{
-	
-}
+public record GetAllShopsQuery : IRequest<IEnumerable<ShopDto>>;
 
-internal class GetAllShopsQueryHandler : IRequestHandler<GetAllShopsQuery, IEnumerable<ShopDto?>?>
+internal class GetAllShopsQueryHandler : IRequestHandler<GetAllShopsQuery, IEnumerable<ShopDto>>
 {
 	private readonly IShopRepository _repository;
 	private readonly IMapper _mapper;
@@ -22,7 +19,7 @@ internal class GetAllShopsQueryHandler : IRequestHandler<GetAllShopsQuery, IEnum
 		_repository = repository;
 		_mapper = mapper;
 	}
-	public async Task<IEnumerable<ShopDto?>?> Handle(GetAllShopsQuery request, CancellationToken cancellationToken)
+	public async Task<IEnumerable<ShopDto>> Handle(GetAllShopsQuery request, CancellationToken cancellationToken)
 	{
 		var entites = await _repository.GetAllAsync();
 		var dtos = _mapper.Map<IEnumerable<ShopDto>>(entites);

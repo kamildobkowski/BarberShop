@@ -1,6 +1,7 @@
 using AutoMapper;
 using BarberShop.Application.Dto.Shops;
 using BarberShop.Application.Interfaces.Repositories;
+using BarberShop.Domain.Exceptions;
 using BarberShop.Domain.ValueObjects;
 using MediatR;
 
@@ -25,6 +26,10 @@ internal class UpdateShopAddressCommandHandler : IRequestHandler<UpdateShopAddre
 	public async Task Handle(UpdateShopAddressCommand request, CancellationToken cancellationToken)
 	{
 		var updatedAddress = _mapper.Map<Address>(request.UpdateShopAddressDto);
-		await _shopRepository.UpdateAddressAsync(request.ShopId, updatedAddress);
+		var entity = await _shopRepository.GetAsync(r => r.Id == request.ShopId);
+		if (entity is null)
+			throw new NotFoundException();
+		_mapper.Map(updatedAddress, entity);
+		await _shopRepository.SaveChangesAsync();
 	}
 }

@@ -1,4 +1,5 @@
 using BarberShop.Application.Interfaces.Repositories;
+using BarberShop.Domain.Exceptions;
 using MediatR;
 
 namespace BarberShop.Application.Services.Shops.Commands;
@@ -16,6 +17,9 @@ internal class DeleteShopCommandHandler : IRequestHandler<DeleteShopCommand>
 	public async Task Handle(DeleteShopCommand request, CancellationToken cancellationToken)
 	{
 		var entity = await _repository.GetByIdAsync(request.Id);
-		await _repository.DeleteAsync(entity);
+		if (entity is null)
+			throw new NotFoundException();
+		_repository.Delete(entity);
+		await _repository.SaveChangesAsync();
 	}
 }

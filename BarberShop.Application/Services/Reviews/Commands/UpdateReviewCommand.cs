@@ -1,5 +1,6 @@
 using BarberShop.Application.Dto.Reviews;
 using BarberShop.Application.Interfaces.Repositories;
+using BarberShop.Domain.Exceptions;
 using MediatR;
 
 namespace BarberShop.Application.Services.Reviews.Commands;
@@ -15,7 +16,10 @@ internal class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand>
 	}
 	public async Task Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
 	{
-		var entity = await _repository.GetByIdAsync(request.ShopId, request.Id);
+		var entity = await _repository
+			.GetAsync(r=>r.Id==request.Id && r.ShopId==request.ShopId);
+		if (entity is null)
+			throw new NotFoundException();
 		if (request.Dto.Description is not null)
 			entity.Description = request.Dto.Description;
 		if (request.Dto.Rating is not null)
