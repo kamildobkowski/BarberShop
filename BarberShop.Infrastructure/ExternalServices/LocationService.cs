@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using BarberShop.Domain.Entites;
 using BarberShop.Domain.ValueObjects;
 using Microsoft.Extensions.Configuration;
 
@@ -14,11 +13,13 @@ public interface ILocationService
 
 public class LocationService : ILocationService
 {
+	private readonly HttpClient _client;
 	private readonly string? _apiKey;
-	private static readonly HttpClient? Client = new HttpClient();
+	
 
-	public LocationService(IConfiguration configuration)
+	public LocationService(IConfiguration configuration, HttpClient client)
 	{
+		_client = client;
 		_apiKey = configuration["LocationApiKey:Key"];
 	}
 	public async Task GetLocation(Address address)
@@ -26,7 +27,7 @@ public class LocationService : ILocationService
 		var addressToString = Uri.EscapeDataString($"{address.Street} {address.Number} {address.PostalCode} {address.City}");
 		var requestUrl =
 			$"https://us1.locationiq.com/v1/search?key={_apiKey}&q={addressToString}&format=json&";
-		var request = await Client?.GetAsync(requestUrl)!;
+		var request = await _client.GetAsync(requestUrl);
 		if (request is null) throw new JsonException();
 		var requestBody = await request.Content.ReadAsStringAsync();
 			var json = JsonNode.Parse(requestBody)?.AsArray();

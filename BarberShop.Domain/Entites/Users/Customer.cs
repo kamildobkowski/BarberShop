@@ -7,5 +7,6 @@ public class Customer
 {
 	public int UserId { get; set; }
 	public User User { get; set; } = default!;
-	public virtual List<Appointment> Appointments { get; set; } = default!;
+	public string PhoneNumber { get; set; } = default!;
+	public List<Appointment> Appointments { get; set; } = default!;
 }

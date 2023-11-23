@@ -7,5 +7,5 @@ public class Review : BaseEntity
 	public string? Description { get; set; }
 	public int Rating { get; set; }
 	public int ShopId { get; set; }
-	public virtual Shop Shop { get; set; }
+	public Shop Shop { get; set; } = default!;
 }

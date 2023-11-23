@@ -10,6 +10,7 @@ public class User : BaseEntity
 	public string Surname { get; set; } = default!;
 	public string? Nationality { get; set; }
 	public int RoleId { get; set; }
-	public virtual Customer? Customer { get; set; }
-	public virtual ShopAdmin? ShopAdmin { get; set; }
+	public Role Role { get; set; } = default!;
+	public Customer? Customer { get; set; }
+	public ShopAdmin? ShopAdmin { get; set; }
 }
