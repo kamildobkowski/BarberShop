@@ -54,11 +54,6 @@ public class AccountController : ControllerBase
 			new Claim(ClaimTypes.Name, $"{user.FirstName} {user.Surname}"),
 			new Claim(ClaimTypes.Role, $"{user.Role.Name}")
 		};
-
-		if (!string.IsNullOrEmpty(user.Nationality))
-		{
-			claims.Add(new Claim("Nationality", user.Nationality));
-		}
 		
 		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
 		var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

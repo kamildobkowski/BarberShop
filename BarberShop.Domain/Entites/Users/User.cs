@@ -8,7 +8,6 @@ public class User : BaseEntity
 	public string PasswordHash { get; set; } = default!;
 	public string FirstName { get; set; } = default!;
 	public string Surname { get; set; } = default!;
-	public string? Nationality { get; set; }
 	public int RoleId { get; set; }
 	public Role Role { get; set; } = default!;
 	public Customer? Customer { get; set; }
