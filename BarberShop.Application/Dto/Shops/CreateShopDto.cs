@@ -7,5 +7,5 @@ public class CreateShopDto
 	public int Number { get; set; }
 	public int? ApartamentNumber { get; set; }
 	public string City { get; set; } = default!;
-	public string? PostalCode { get; set; }
+	public string PostalCode { get; set; } = default!;
 }

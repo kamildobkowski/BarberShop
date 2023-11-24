@@ -25,7 +25,10 @@ internal class CreateShopAdminCommandHandler : IRequestHandler<CreateShopAdminCo
 		var entity = _mapper.Map<User>(request.Dto);
 		entity.PasswordHash = _hasher.HashPassword(entity, request.Dto.Password);
 		if (request.ShopId is not null)
-			entity.ShopAdmin!.ShopId = request.ShopId.Value;
+			entity.ShopAdmin = new ShopAdmin
+			{
+				ShopId = request.ShopId.Value
+			};
 		_repository.Add(entity);
 		await _repository.SaveChangesAsync();
 	}
