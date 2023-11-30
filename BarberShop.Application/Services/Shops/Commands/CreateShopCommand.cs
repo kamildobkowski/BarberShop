@@ -6,12 +6,12 @@ using MediatR;
 
 namespace BarberShop.Application.Services.Shops.Commands;
 
-public class CreateShopCommand : IRequest
+public class CreateShopCommand : IRequest<int>
 {
 	public CreateShopDto CreateShopDto { get; set; } = default!;
 }
 
-public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand>
+public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand, int>
 {
 	private readonly IShopRepository _shopRepository;
 	private readonly IMapper _mapper;
@@ -21,10 +21,11 @@ public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand>
 		_shopRepository = shopRepository;
 		_mapper = mapper;
 	}
-	public async Task Handle(CreateShopCommand request, CancellationToken cancellationToken)
+	public async Task<int> Handle(CreateShopCommand request, CancellationToken cancellationToken)
 	{
 		var entity = _mapper.Map<Shop>(request.CreateShopDto);
 		_shopRepository.Add(entity);
 		await _shopRepository.SaveChangesAsync();
+		return entity.Id;
 	}
 }

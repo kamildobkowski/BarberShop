@@ -1,7 +1,10 @@
+using System.Security.Claims;
 using BarberShop.Application.Dto.Shops;
+using BarberShop.Application.Services.Accounts.Commands;
 using BarberShop.Application.Services.Shops.Commands;
 using BarberShop.Application.Services.Shops.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.API.Controllers;
@@ -30,13 +33,28 @@ public class ShopController : ControllerBase
 		return Ok(entity);
 	}
 
+	[Authorize(Roles="ShopAdmin, Admin")]
 	[HttpPost]
 	public async Task Add(CreateShopDto dto)
 	{
-		await _mediator.Send(new CreateShopCommand()
+		var shopId = await _mediator.Send(new CreateShopCommand
 		{
 			CreateShopDto = dto
 		});
+		if (User.Claims.First(c => c.Type == ClaimTypes.Role).ToString() == "ShopAdmin")
+		{
+			string email = User.Claims.First(c => c.Type == ClaimTypes.Email).ToString();
+			try
+			{
+				var id = int.Parse(User.Claims.First(c => c.Type == "ShopIdentifier").ToString());
+			}
+			catch (InvalidOperationException)
+			{
+				await _mediator.Send(new AddShopIdToShopAdminCommand(email, shopId));
+			}
+			
+			
+		}
 	}
 
 	[HttpPut("{shopId}")]

@@ -15,4 +15,20 @@ public class ShopRepository : GenericRepository<Shop>, IShopRepository
 	{
 		_dbContext = dbContext;
 	}
+
+	public override async Task<Shop?> GetAsync(Expression<Func<Shop, bool>> lambda)
+		=> await _dbContext.Shops
+			.Include(r=>r.Address)
+			.Include(r=>r.Services)
+			.Include(r=>r.Reviews)
+			.Include(r=>r.Appointments)
+			.FirstOrDefaultAsync(lambda);
+
+	public override async Task<IEnumerable<Shop>> GetAllAsync()
+		=> await _dbContext.Shops
+			.Include(r => r.Address)
+			.Include(r => r.Services)
+			.Include(r => r.Reviews)
+			.Include(r => r.Appointments)
+			.ToListAsync();
 }

@@ -16,7 +16,8 @@ public class AccountMappingProfile : Profile
 			}));
 		CreateMap<CreateShopAdminDto, User>()
 			.ForMember(r => r.RoleId, c => c.MapFrom(s => 3));
-
+		CreateMap<CreateAdminDto, User>()
+			.ForMember(r => r.RoleId, c => c.MapFrom(s => 1));
 
 	}
 }

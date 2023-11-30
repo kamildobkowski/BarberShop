@@ -6,13 +6,14 @@ using BarberShop.Application.Services.Accounts.Commands;
 using BarberShop.Application.Services.Accounts.Queries;
 using BarberShop.Domain.Entites.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BarberShop.API.Controllers;
 
 [ApiController]
-[Route("api/account")]
+[Route("api")]
 public class AccountController : ControllerBase
 {
 	private readonly IMediator _mediator;
@@ -38,6 +39,13 @@ public class AccountController : ControllerBase
 		return Ok();
 	}
 
+	[HttpPost("register/admin")]
+	public async Task<ActionResult> RegisterAdmin(CreateAdminDto dto)
+	{
+		await _mediator.Send(new CreateAdminCommand(dto));
+		return Ok();
+	}
+	
 	[HttpPost("login")]
 	public async Task<ActionResult<String>> Login([FromBody] LoginDto dto)
 	{
@@ -45,15 +53,25 @@ public class AccountController : ControllerBase
 		var token = GenerateToken(user);
 		return Ok(token);
 	}
+
+	[HttpPut]
+	[Authorize(Roles = "Admin")]
+	public async Task AddShopToShopAdmin([FromBody] AddShopAdminToShopDto dto)
+	{
+		await _mediator.Send(new AddShopIdToShopAdminCommand(dto.Email, dto.ShopId));
+	}
 	
 	private string GenerateToken(User user)
 	{
 		var claims = new List<Claim>
 		{
-			new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-			new Claim(ClaimTypes.Name, $"{user.FirstName} {user.Surname}"),
-			new Claim(ClaimTypes.Role, $"{user.Role.Name}")
+			new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+			new(ClaimTypes.Name, $"{user.FirstName} {user.Surname}"),
+			new(ClaimTypes.Role, $"{user.Role.Name}"),
+			new(ClaimTypes.Email, $"{user.Email}")
 		};
+		if(user.ShopAdmin is not null)
+			claims.Add(new Claim("ShopIdentifier", user.ShopAdmin.ShopId.ToString()));
 		
 		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
 		var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

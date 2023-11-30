@@ -45,7 +45,7 @@ public class LoginDtoValidator : AbstractValidator<LoginDto>
 {
 	public LoginDtoValidator()
 	{
-		RuleFor(r => r.Password)
+		RuleFor(r => r.Email)
 			.NotEmpty().WithMessage("The field is required")
 			.EmailAddress();
 		RuleFor(r => r.Password)
