@@ -1,9 +1,6 @@
-using System.Linq.Expressions;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites;
-using BarberShop.Domain.Exceptions;
 using BarberShop.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Infrastructure.Repositories;
 

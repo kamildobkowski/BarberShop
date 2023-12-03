@@ -35,9 +35,22 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 	public virtual async Task SaveChangesAsync()
 		=> await _dbContext.SaveChangesAsync();
 
-	public void AddRange(IEnumerable<T> entities)
+	public virtual void AddRange(IEnumerable<T> entities)
 		=> _dbContext.Set<T>().AddRange(entities);
 
-	public void DeleteRange(IEnumerable<T> entities)
+	public virtual void DeleteRange(IEnumerable<T> entities)
 		=> _dbContext.Set<T>().RemoveRange(entities);
+
+	protected IQueryable<T> GetPageQuery(int page, int pageSize, Expression<Func<T, object>> orderBy, 
+		Expression<Func<T, bool>> filter, bool asc=true)
+		=> asc ? _dbContext.Set<T>()
+				.Where(filter)
+				.OrderBy(orderBy)
+				.Skip(page-1*pageSize)
+				.Take(pageSize)
+			: _dbContext.Set<T>()
+				.Where(filter)
+				.OrderByDescending(orderBy)
+				.Skip(page-1*pageSize)
+				.Take(pageSize);
 }

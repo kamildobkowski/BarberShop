@@ -26,7 +26,29 @@ public class TimeTableController : ControllerBase
 		var shopId = User.FindFirstValue("ShopIdentifier");
 		if (shopId is null)
 			return StatusCode(403);
-		await _mediator.Send(new AddSlotsCommand(dtos, int.Parse(shopId!)));
+		await _mediator.Send(new AddSlotsCommand(dtos, int.Parse(shopId)));
 		return Ok();
+	}
+
+	[HttpDelete]
+	[Authorize(Roles = "ShopAdmin")]
+	public async Task<ActionResult> RemoveSchedule([FromBody] List<RemoveSlotDto> dtos)
+	{
+		var shopId = User.FindFirstValue("ShopIdentifier");
+		if (shopId is null)
+			return StatusCode(403);
+		await _mediator.Send(new DeleteSlotsCommand(dtos, int.Parse(shopId)));
+		return Ok();
+	}
+
+	[HttpGet]
+	[Authorize(Roles = "ShopAdmin")]
+	public async Task<ActionResult<List<SlotDto>>> GetSchedule()
+	{
+		var shopId = User.FindFirstValue("ShopIdentifier");
+		if (shopId is null)
+			return StatusCode(403);
+		var dtos = await _mediator.Send(new GetSlotsQuery(int.Parse(shopId)));
+		return Ok(dtos);
 	}
 }

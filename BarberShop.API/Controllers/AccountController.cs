@@ -56,9 +56,10 @@ public class AccountController : ControllerBase
 
 	[HttpPut]
 	[Authorize(Roles = "Admin")]
-	public async Task AddShopToShopAdmin([FromBody] AddShopAdminToShopDto dto)
+	public async Task<ActionResult> AddShopToShopAdmin([FromBody] AddShopAdminToShopDto dto)
 	{
 		await _mediator.Send(new AddShopIdToShopAdminCommand(dto.Email, dto.ShopId));
+		return Ok();
 	}
 	
 	private string GenerateToken(User user)
