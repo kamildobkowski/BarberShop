@@ -7,9 +7,9 @@ using MediatR;
 
 namespace BarberShop.Application.Services.Shops.Queries;
 
-public record GetAllShopsQuery : IRequest<IEnumerable<ShopDto>>;
+public record GetAllShopsQuery(int Page = 1, int PageSize = 10, string? Filter = null, string? OrderBy = null, bool SortOrder = true ) : IRequest<PagedList<ShopDto>>;
 
-internal class GetAllShopsQueryHandler : IRequestHandler<GetAllShopsQuery, IEnumerable<ShopDto>>
+internal class GetAllShopsQueryHandler : IRequestHandler<GetAllShopsQuery, PagedList<ShopDto>>
 {
 	private readonly IShopRepository _repository;
 	private readonly IMapper _mapper;
@@ -19,10 +19,10 @@ internal class GetAllShopsQueryHandler : IRequestHandler<GetAllShopsQuery, IEnum
 		_repository = repository;
 		_mapper = mapper;
 	}
-	public async Task<IEnumerable<ShopDto>> Handle(GetAllShopsQuery request, CancellationToken cancellationToken)
+	public async Task<PagedList<ShopDto>> Handle(GetAllShopsQuery request, CancellationToken cancellationToken)
 	{
-		var entites = await _repository.GetAllAsync();
-		var dtos = _mapper.Map<IEnumerable<ShopDto>>(entites);
+		var entites = await _repository.GetPageAsync(request.Page, request.PageSize, request.Filter, request.OrderBy, request.SortOrder);
+		var dtos = new PagedList<ShopDto>(_mapper.Map<List<ShopDto>>(entites.List), entites.Page, entites.PageSize, entites.Count);
 		return dtos;
 	}
 }

@@ -46,11 +46,11 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : cla
 		=> asc ? _dbContext.Set<T>()
 				.Where(filter)
 				.OrderBy(orderBy)
-				.Skip(page-1*pageSize)
+				.Skip((page-1)*pageSize)
 				.Take(pageSize)
 			: _dbContext.Set<T>()
 				.Where(filter)
 				.OrderByDescending(orderBy)
-				.Skip(page-1*pageSize)
+				.Skip((page-1)*pageSize)
 				.Take(pageSize);
 }

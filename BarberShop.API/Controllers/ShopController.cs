@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using BarberShop.Application.Dto;
 using BarberShop.Application.Dto.Shops;
 using BarberShop.Application.Services.Accounts.Commands;
 using BarberShop.Application.Services.Shops.Commands;
@@ -20,14 +21,16 @@ public class ShopController : ControllerBase
 		_mediator = mediator;
 	}
 	[HttpGet]
-	public async Task<IActionResult> GetAll()
+	public async Task<ActionResult<PagedList<ShopDto>>> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = null, [FromQuery] string? orderBy = null, [FromQuery] bool sortOrder = true)
 	{
-		var entites = await _mediator.Send(new GetAllShopsQuery());
+		if (pageSize > 50)
+			return BadRequest();
+		var entites = await _mediator.Send(new GetAllShopsQuery(page, pageSize, filter, orderBy, sortOrder));
 		return Ok(entites);
 	}
 
 	[HttpGet("{id}")]
-	public async Task<IActionResult> GetById([FromRoute] int id)
+	public async Task<ActionResult> GetById([FromRoute] int id)
 	{
 		var entity = await _mediator.Send(new GetShopQuery(id));
 		return Ok(entity);
