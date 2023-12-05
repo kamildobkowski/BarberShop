@@ -8,9 +8,9 @@ public class Appointment : BaseEntity
 {
 	public DateTime StartTime { get; set; }
 	public int ServiceId { get; set; }
-	public BarberService Service { get; set; } = default!;
+	public virtual BarberService Service { get; set; } = default!;
 	public int UserId { get; set; }
-	public Customer Customer { get; set; } = default!;
-	public int? ShopId { get; set; }
-	public Shop? Shop { get; set; }
+	public virtual Customer Customer { get; set; } = default!;
+	public int ShopId { get; set; }
+	public virtual Shop Shop { get; set; } = default!;
 }

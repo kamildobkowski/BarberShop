@@ -39,7 +39,7 @@ public class ShopRepository : GenericRepository<Shop>, IShopRepository
 
 		Expression<Func<Shop, object>> orderByLambda = orderBy.IsNullOrEmpty()
 			? (shop) => shop.Id
-			: orderBy.ToLower() switch
+			: orderBy?.ToLower() switch
 			{
 				"name" => shop => shop.Name,
 				_ => shop => shop.Id

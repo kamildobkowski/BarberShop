@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <Folder Include="Interfaces\" />
+      <Folder Include="Services\Appointments\Queries\" />
     </ItemGroup>
 
     <ItemGroup>
