@@ -67,6 +67,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
 var app = builder.Build();
+
+app.AddMiddleware();
+
 app.Seed();
 
 // Configure the HTTP request pipeline.
