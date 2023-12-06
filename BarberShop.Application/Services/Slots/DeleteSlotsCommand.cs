@@ -1,4 +1,5 @@
 using BarberShop.Application.Dto.Appointments;
+using BarberShop.Application.Dto.Slots;
 using BarberShop.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

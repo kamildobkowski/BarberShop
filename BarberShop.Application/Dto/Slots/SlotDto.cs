@@ -1,4 +1,4 @@
-namespace BarberShop.Application.Dto.Appointments;
+namespace BarberShop.Application.Dto.Slots;
 
 public record SlotDto
 {

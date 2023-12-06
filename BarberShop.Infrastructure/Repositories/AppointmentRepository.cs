@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using BarberShop.Application;
 using BarberShop.Application.Dto;
 using BarberShop.Application.Interfaces.Repositories;
+using BarberShop.Application.Models;
 using BarberShop.Domain.Entites.Appointments;
 using BarberShop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;

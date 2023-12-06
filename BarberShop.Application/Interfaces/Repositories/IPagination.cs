@@ -1,4 +1,5 @@
 using BarberShop.Application.Dto;
+using BarberShop.Application.Models;
 
 namespace BarberShop.Application.Interfaces.Repositories;
 

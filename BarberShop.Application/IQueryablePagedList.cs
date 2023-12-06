@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BarberShop.Application.Dto;
+using BarberShop.Application.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Application;

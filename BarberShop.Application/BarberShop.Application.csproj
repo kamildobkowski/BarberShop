@@ -14,6 +14,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Dto\Appointments\Validation\" />
+      <Folder Include="Dto\Slots\Validation\" />
       <Folder Include="Interfaces\" />
       <Folder Include="Services\Appointments\Queries\" />
     </ItemGroup>

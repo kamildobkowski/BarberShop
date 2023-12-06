@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using BarberShop.Application.Dto;
 using BarberShop.Application.Dto.Shops;
+using BarberShop.Application.Models;
 using BarberShop.Application.Services.Accounts.Commands;
 using BarberShop.Application.Services.Shops.Commands;
 using BarberShop.Application.Services.Shops.Queries;

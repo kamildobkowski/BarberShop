@@ -1,7 +1,6 @@
 using System.Collections;
-using AutoMapper;
 
-namespace BarberShop.Application.Dto;
+namespace BarberShop.Application.Models;
 
 public class PagedList<T> : IEnumerable<T>
 {
