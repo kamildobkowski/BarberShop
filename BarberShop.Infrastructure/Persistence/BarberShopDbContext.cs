@@ -51,5 +51,9 @@ public class BarberShopDbContext : DbContext
 			.HasOne(r => r.Shop)
 			.WithMany(r => r.Appointments)
 			.OnDelete(DeleteBehavior.Restrict);
+		modelBuilder.Entity<Appointment>()
+			.HasOne(r => r.Customer)
+			.WithMany(r => r.Appointments)
+			.OnDelete(DeleteBehavior.Restrict);
 	}
 }

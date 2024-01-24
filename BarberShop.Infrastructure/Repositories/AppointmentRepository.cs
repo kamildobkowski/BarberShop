@@ -19,6 +19,11 @@ public class AppointmentRepository : GenericRepository<Appointment>, IAppointmen
 		_dbContext = dbContext;
 	}
 
+	public override Task<Appointment?> GetAsync(Expression<Func<Appointment, bool>> lambda)
+		=> _dbContext.Appointments
+			.Include(r => r.Service)
+			.FirstOrDefaultAsync(lambda);
+
 	public Task<PagedList<Appointment>> GetPageAsync(int page, int pageSize, string? filter, string? orderBy, bool sortOrder)
 	{
 		Expression<Func<Appointment, object>> ordedByLambda = orderBy!.ToLower() switch

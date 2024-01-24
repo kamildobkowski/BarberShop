@@ -26,6 +26,7 @@ public static class DependencyInjection
 		services.AddScoped<IRoleSeeder, RoleSeeder>();
 		services.AddHttpClient<LocationService>();
 		services.AddScoped<ITimeTableRepository, TimeTableRepository>();
+		services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 	}
 
 	public static void Seed(this WebApplication app)
