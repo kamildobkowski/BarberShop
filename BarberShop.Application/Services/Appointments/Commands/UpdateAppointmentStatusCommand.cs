@@ -17,10 +17,13 @@ internal sealed class UpdateAppointmentStatusCommandHandler : IRequestHandler<Up
 	}
 	public async Task Handle(UpdateAppointmentStatusCommand request, CancellationToken cancellationToken)
 	{
-		Enum.TryParse(request.NewStatus, out AppointmentStatus status);
+		if (!Enum.TryParse(request.NewStatus, out AppointmentStatus status))
+		{
+			throw new NotFoundException("Incorrect status");
+		}
 		var entity = await _repository.GetAsync(r => r.Id == request.Id);
 		if (entity is null)
-			throw new NotFoundException();
+			throw new NotFoundException("Appointment not found");
 		entity.Status = status;
 		await _repository.SaveChangesAsync();
 	}
