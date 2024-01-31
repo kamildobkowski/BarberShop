@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BarberShop.API.Controllers;
 
 [ApiController, Authorize]
-[Route("api/shops/{shopId}/appointments")]
+[Route("api/appointments")]
 public class AppointmentController : ControllerBase
 {
 	private readonly IMediator _mediator;
@@ -21,7 +21,7 @@ public class AppointmentController : ControllerBase
 	
 	[HttpPost]
 	[Authorize(Roles="Customer")]
-	public async Task<ActionResult> CreateAppointment([FromRoute] int shopId, 
+	public async Task<ActionResult> CreateAppointment([FromQuery] int shopId, 
 		[FromQuery] DateTime startDate, [FromBody] int serviceId)
 	{
 		var command = new CreateAppointmentCommand(shopId, startDate, serviceId);
@@ -36,7 +36,14 @@ public class AppointmentController : ControllerBase
 		var dto = await _mediator.Send(query);
 		return Ok(dto);
 	}
-	
+
+	[HttpPatch("{id}/status")]
+	public async Task<ActionResult> UpdateAppointmentStatus([FromRoute] int id, [FromBody] string newStatus)
+	{
+		var query = new UpdateAppointmentStatusCommand(id, newStatus);
+		await _mediator.Send(query);
+		return StatusCode(206);
+	}
 	
 	
 }
