@@ -3,7 +3,6 @@ using System.Text;
 using BarberShop.API;
 using BarberShop.Application;
 using BarberShop.Infrastructure;
-using BarberShop.Infrastructure.Seeders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
