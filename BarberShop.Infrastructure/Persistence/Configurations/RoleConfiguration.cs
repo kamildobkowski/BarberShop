@@ -1,3 +1,4 @@
+using BarberShop.Domain.Entites;
 using BarberShop.Domain.Entites.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -5,7 +6,7 @@ using Microsoft.Extensions.Http;
 
 namespace BarberShop.Infrastructure.Persistence.Configurations;
 
-public class RoleConfiguration : IEntityTypeConfiguration<Role>
+internal class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
 	public void Configure(EntityTypeBuilder<Role> builder)
 	{
@@ -15,7 +16,8 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
 			.WithOne();
 		builder
 			.HasMany(r => r.Permissions)
-			.WithMany();
+			.WithMany()
+			.UsingEntity<RolePermission>();
 		builder.HasData(Role.GetValues());
 	}
 }

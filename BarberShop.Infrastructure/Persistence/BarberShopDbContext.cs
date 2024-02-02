@@ -22,6 +22,8 @@ public class BarberShopDbContext : DbContext
 	public DbSet<Customer> Customers { get; set; } = default!;
 	public DbSet<Appointment> Appointments { get; set; } = default!;
 	public DbSet<Slot> TimeTable { get; set; } = default!;
+	public DbSet<Permission> Permissions { get; set; } = default!;
+	public DbSet<RolePermission> RolePermissions { get; set; } = default!;
 	public Task<int> SaveChangesAsync()
 	{
 		return base.SaveChangesAsync();
