@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace BarberShop.Infrastructure.Authorization;
+namespace BarberShop.Infrastructure.Authorization.Permissions;
 
 public class PermissionRequirement : IAuthorizationRequirement
 {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace BarberShop.Infrastructure.Authorization;
+namespace BarberShop.Infrastructure.Authorization.Permissions;
 
 public class PermissionAuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider
 {

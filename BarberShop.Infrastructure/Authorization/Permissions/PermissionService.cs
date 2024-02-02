@@ -1,7 +1,7 @@
 using BarberShop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace BarberShop.Infrastructure.Authorization;
+namespace BarberShop.Infrastructure.Authorization.Permissions;
 
 public class PermissionService : IPermissionService
 {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EfCoreDialogsState">
+    <option name="keyValueStorage">
+      <map>
+        <entry key="Common:6c1c32d5-0064-4098-ac59-2bd35ee984ac:dbContext" value="BarberShop.Infrastructure.Persistence.BarberShopDbContext" />
+        <entry key="Common:buildConfiguration" value="Debug" />
+        <entry key="Common:ff833d2b-661d-4046-b37f-7f9d0add636e:dbContext" value="BarberShop.Shared.Data.BarberShopDbContext" />
+        <entry key="Common:noBuild" value="false" />
+        <entry key="Common:outputFolder" value="Migrations" />
+        <entry key="Common:useDefaultConnection" value="true" />
+      </map>
+    </option>
+  </component>
+</project>

@@ -2,7 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BarberShop.Infrastructure.Authorization;
+namespace BarberShop.Infrastructure.Authorization.Permissions;
 
 public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {

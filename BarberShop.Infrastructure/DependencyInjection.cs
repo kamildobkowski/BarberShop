@@ -3,6 +3,8 @@ using BarberShop.Application.Interfaces;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites.Users;
 using BarberShop.Infrastructure.Authorization;
+using BarberShop.Infrastructure.Authorization.Jwt;
+using BarberShop.Infrastructure.Authorization.Permissions;
 using BarberShop.Infrastructure.ExternalServices;
 using BarberShop.Infrastructure.Persistence;
 using BarberShop.Infrastructure.Repositories;

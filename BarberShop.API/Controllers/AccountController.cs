@@ -1,15 +1,14 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using BarberShop.Application.Dto.Account;
 using BarberShop.Application.Services.Accounts.Commands;
 using BarberShop.Application.Services.Accounts.Queries;
+<<<<<<< HEAD
 using BarberShop.Domain.Entites.Users;
 using BarberShop.Infrastructure.Authorization;
+=======
+>>>>>>> 93f592b (Move jwt provider to infrastructure project)
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace BarberShop.API.Controllers;
 
@@ -18,12 +17,10 @@ namespace BarberShop.API.Controllers;
 public class AccountController : ControllerBase
 {
 	private readonly IMediator _mediator;
-	private readonly AuthenticationSettings _authenticationSettings;
 
-	public AccountController(IMediator mediator ,AuthenticationSettings authenticationSettings)
+	public AccountController(IMediator mediator)
 	{
 		_mediator = mediator;
-		_authenticationSettings = authenticationSettings;
 	}
 	
 	[HttpPost("register")]
