@@ -1,4 +1,4 @@
-namespace BarberShop.API;
+namespace BarberShop.Infrastructure.Authorization;
 
 public class AuthenticationSettings
 {

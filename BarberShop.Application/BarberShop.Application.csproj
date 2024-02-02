@@ -15,7 +15,6 @@
 
     <ItemGroup>
       <Folder Include="Dto\Slots\Validation\" />
-      <Folder Include="Interfaces\" />
     </ItemGroup>
 
     <ItemGroup>
