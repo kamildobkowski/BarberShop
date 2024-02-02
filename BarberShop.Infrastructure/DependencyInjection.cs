@@ -1,8 +1,10 @@
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites.Users;
+using BarberShop.Infrastructure.Authorization;
 using BarberShop.Infrastructure.ExternalServices;
 using BarberShop.Infrastructure.Persistence;
 using BarberShop.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,9 @@ public static class DependencyInjection
 		services.AddHttpClient<LocationService>();
 		services.AddScoped<ITimeTableRepository, TimeTableRepository>();
 		services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+		services.AddAuthorization();
+		services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+		services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 	}
 
 	public static void Seed(this WebApplication app)
