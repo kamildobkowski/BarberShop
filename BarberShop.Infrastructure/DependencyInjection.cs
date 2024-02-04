@@ -2,7 +2,6 @@ using System.Text;
 using BarberShop.Application.Interfaces;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites.Users;
-using BarberShop.Infrastructure.Authorization;
 using BarberShop.Infrastructure.Authorization.Jwt;
 using BarberShop.Infrastructure.Authorization.Permissions;
 using BarberShop.Infrastructure.ExternalServices;
@@ -56,6 +55,7 @@ public static class DependencyInjection
 		});
 		services.AddSingleton(authenticationSettings);
 		services.AddScoped<IJwtService, JwtService>();
+		services.AddScoped<IUserContextService, UserContextService>();
 	}
 
 	public static void Seed(this WebApplication app)

@@ -33,6 +33,12 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+      <Folder Include="Authorization\Resource\Appointments\" />
+      <Folder Include="Authorization\Resource\Shops\" />
+    </ItemGroup>
+
+
 
 
 

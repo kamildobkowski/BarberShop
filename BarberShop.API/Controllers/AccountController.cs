@@ -1,11 +1,6 @@
 using BarberShop.Application.Dto.Account;
 using BarberShop.Application.Services.Accounts.Commands;
 using BarberShop.Application.Services.Accounts.Queries;
-<<<<<<< HEAD
-using BarberShop.Domain.Entites.Users;
-using BarberShop.Infrastructure.Authorization;
-=======
->>>>>>> 93f592b (Move jwt provider to infrastructure project)
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
