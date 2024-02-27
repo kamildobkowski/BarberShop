@@ -1,0 +1,26 @@
+Index: BarberShop.API/Controllers/AccountController.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.IdentityModel.Tokens.Jwt;\nusing System.Security.Claims;\nusing System.Text;\nusing BarberShop.Application.Dto.Account;\nusing BarberShop.Application.Services.Accounts.Commands;\nusing BarberShop.Application.Services.Accounts.Queries;\nusing BarberShop.Domain.Entites.Users;\nusing BarberShop.Infrastructure.Authorization;\nusing MediatR;\nusing Microsoft.AspNetCore.Authorization;\nusing Microsoft.AspNetCore.Mvc;\nusing Microsoft.IdentityModel.Tokens;\n\nnamespace BarberShop.API.Controllers;\n\n[ApiController]\n[Route(\"api\")]\npublic class AccountController : ControllerBase\n{\n\tprivate readonly IMediator _mediator;\n\tprivate readonly AuthenticationSettings _authenticationSettings;\n\n\tpublic AccountController(IMediator mediator ,AuthenticationSettings authenticationSettings)\n\t{\n\t\t_mediator = mediator;\n\t\t_authenticationSettings = authenticationSettings;\n\t}\n\t\n\t[HttpPost(\"register\")]\n\tpublic async Task<ActionResult> RegisterCustomer([FromBody] CreateCustomerDto dto)\n\t{\n\t\tawait _mediator.Send(new CreateCustomerCommand(dto));\n\t\treturn Ok();\n\t}\n\n\t[HttpPost(\"register/shopadmin\")]\n\tpublic async Task<ActionResult> RegisterShopAdmin([FromBody] CreateShopAdminDto dto)\n\t{\n\t\tawait _mediator.Send(new CreateShopAdminCommand(dto));\n\t\treturn Ok();\n\t}\n\n\t[HttpPost(\"register/admin\")]\n\tpublic async Task<ActionResult> RegisterAdmin(CreateAdminDto dto)\n\t{\n\t\tawait _mediator.Send(new CreateAdminCommand(dto));\n\t\treturn Ok();\n\t}\n\t\n\t[HttpPost(\"login\")]\n\tpublic async Task<ActionResult<String>> Login([FromBody] LoginDto dto)\n\t{\n\t\tvar token = await _mediator.Send(new VerifyUserLoginQuery(dto));\n\t\treturn Ok(token);\n\t}\n\n\t[HttpPut]\n\t[Authorize(Roles = \"Admin\")]\n\tpublic async Task<ActionResult> AddShopToShopAdmin([FromBody] AddShopAdminToShopDto dto)\n\t{\n\t\tawait _mediator.Send(new AddShopIdToShopAdminCommand(dto.Email, dto.ShopId));\n\t\treturn Ok();\n\t}\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BarberShop.API/Controllers/AccountController.cs b/BarberShop.API/Controllers/AccountController.cs
+--- a/BarberShop.API/Controllers/AccountController.cs	(revision 7cb94c3bf2f2a6e0f84d433b1d98f499005e0bd1)
++++ b/BarberShop.API/Controllers/AccountController.cs	(date 1706918363418)
+@@ -1,15 +1,10 @@
+-using System.IdentityModel.Tokens.Jwt;
+-using System.Security.Claims;
+-using System.Text;
+ using BarberShop.Application.Dto.Account;
+ using BarberShop.Application.Services.Accounts.Commands;
+ using BarberShop.Application.Services.Accounts.Queries;
+-using BarberShop.Domain.Entites.Users;
+ using BarberShop.Infrastructure.Authorization;
+ using MediatR;
+ using Microsoft.AspNetCore.Authorization;
+ using Microsoft.AspNetCore.Mvc;
+-using Microsoft.IdentityModel.Tokens;
+ 
+ namespace BarberShop.API.Controllers;
+ 
