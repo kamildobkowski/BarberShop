@@ -1,6 +1,7 @@
 using BarberShop.Domain.Entites;
 using BarberShop.Domain.Entites.Appointments;
 using BarberShop.Domain.Entites.Users;
+using BarberShop.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Infrastructure.Persistence;
@@ -28,11 +29,16 @@ public class BarberShopDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
+		modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleConfiguration).Assembly);
 		modelBuilder.Entity<Shop>().HasOne(r => r.Address);
 		modelBuilder.Entity<Shop>()
 			.HasMany(r => r.Appointments)
 			.WithOne(r => r.Shop)
 			.OnDelete(DeleteBehavior.Restrict);
+		modelBuilder.Entity<User>()
+			.HasOne(r => r.Role)
+			.WithMany(r => r.Users)
+			.IsRequired(true);
 		modelBuilder.Entity<User>()
 			.HasOne(r => r.Customer)
 			.WithOne(r => r.User)

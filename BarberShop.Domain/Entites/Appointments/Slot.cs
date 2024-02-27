@@ -10,7 +10,7 @@ public class Slot : BaseEntity
 	public int? AppointmentId { get; set; }
 	public virtual Appointment? Appointment { get; set; }
 
-	public static List<Slot> CreateEmptySlots(DateOnly date, TimeOnly start, TimeOnly end, int shopId)
+	public static List<Slot> CreateEmptySlots(DateOnly date, TimeOnly start, TimeOnly end, int shopId, int userId)
 	{
 		var slots = new List<Slot>();
 		while (end - start >= TimeSpan.FromMinutes(15))
@@ -19,7 +19,8 @@ public class Slot : BaseEntity
 			{
 				ShopId = shopId,
 				TimeSlot = date.ToDateTime(start),
-				AppointmentId = null
+				AppointmentId = null,
+				CreatedById = userId
 			});
 			start = start.Add(TimeSpan.FromMinutes(15));
 		}

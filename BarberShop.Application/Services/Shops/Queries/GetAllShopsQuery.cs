@@ -2,7 +2,7 @@ using AutoMapper;
 using BarberShop.Application.Dto;
 using BarberShop.Application.Dto.Shops;
 using BarberShop.Application.Interfaces.Repositories;
-using BarberShop.Application.Models;
+using BarberShop.Domain.Common;
 using BarberShop.Domain.Entites;
 using MediatR;
 

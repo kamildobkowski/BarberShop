@@ -1,4 +1,5 @@
 using BarberShop.Application.Dto.Reviews;
+using BarberShop.Application.Interfaces;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Exceptions;
 using MediatR;
@@ -9,13 +10,16 @@ public record UpdateReviewCommand(int ShopId, int Id, UpdateReviewDto Dto) : IRe
 internal class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand>
 {
 	private readonly IReviewRepository _repository;
+	private readonly IAuthorizationService _authorizationService;
 
-	public UpdateReviewCommandHandler(IReviewRepository repository)
+	public UpdateReviewCommandHandler(IReviewRepository repository, IAuthorizationService authorizationService)
 	{
 		_repository = repository;
+		_authorizationService = authorizationService;
 	}
 	public async Task Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
 	{
+		_authorizationService.AuthorizeShopAdmin(request.ShopId);
 		var entity = await _repository
 			.GetAsync(r=>r.Id==request.Id && r.ShopId==request.ShopId);
 		if (entity is null)
