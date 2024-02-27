@@ -2,6 +2,8 @@ using System.Security.Claims;
 using BarberShop.Application.Dto.Appointments;
 using BarberShop.Application.Dto.Slots;
 using BarberShop.Application.Services.Slots;
+using BarberShop.Application.Services.Slots.Commands;
+using BarberShop.Application.Services.Slots.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

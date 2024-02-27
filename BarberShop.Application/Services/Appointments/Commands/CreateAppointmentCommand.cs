@@ -3,6 +3,7 @@ using System.Security.Authentication;
 using System.Security.Claims;
 using AutoMapper;
 using BarberShop.Application.Dto.Appointments;
+using BarberShop.Application.Interfaces;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites.Appointments;
 using MediatR;
@@ -18,29 +19,31 @@ internal class CreateAppointmentCommandHandler : IRequestHandler<CreateAppointme
 	private readonly IAppointmentRepository _repository;
 	private readonly ITimeTableRepository _slotRepository;
 	private readonly IBarberServiceRepository _barberServiceRepository;
-	private readonly IHttpContextAccessor _accessor;
+	private readonly IUserContextService _userContextService;
+	private readonly IAuthorizationService _authorizationService;
 
 	public CreateAppointmentCommandHandler(IAppointmentRepository repository, 
 		ITimeTableRepository slotRepository, IBarberServiceRepository barberServiceRepository, 
-		IHttpContextAccessor accessor)
+		IUserContextService userContextService, IAuthorizationService authorizationService)
 	{
 		_repository = repository;
 		_slotRepository = slotRepository;
 		_barberServiceRepository = barberServiceRepository;
-		_accessor = accessor;
+		_userContextService = userContextService;
+		_authorizationService = authorizationService;
 	}
 	public async Task<int> Handle(CreateAppointmentCommand request, CancellationToken cancellationToken)
 	{
-		var userId = int.Parse(
-			_accessor.HttpContext?
-				.User.FindFirst(r => r.Type == ClaimTypes.NameIdentifier)!.Value 
-				?? throw new AuthenticationException());
+		_authorizationService.AuthorizeAppointment(null, request.ShopId);
+
+		var userId = _userContextService.UserId;
 		var entity = new Appointment
 		{
 			ServiceId = request.ServiceId,
 			ShopId = request.ShopId,
 			CustomerUserId = userId,
-			StartTime = request.StartDate
+			StartTime = request.StartDate,
+			CreatedById = userId
 		};
 		var service = _barberServiceRepository
 			.GetAsync(r => r.Id == entity.ServiceId).Result;

@@ -2,8 +2,8 @@ using System.Text;
 using BarberShop.Application.Interfaces;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites.Users;
+using BarberShop.Infrastructure.Authorization;
 using BarberShop.Infrastructure.Authorization.Jwt;
-using BarberShop.Infrastructure.Authorization.Permissions;
 using BarberShop.Infrastructure.ExternalServices;
 using BarberShop.Infrastructure.Persistence;
 using BarberShop.Infrastructure.Repositories;
@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using IAuthorizationService = BarberShop.Application.Interfaces.IAuthorizationService;
 
 namespace BarberShop.Infrastructure;
 
@@ -32,8 +33,6 @@ public static class DependencyInjection
 		services.AddScoped<ITimeTableRepository, TimeTableRepository>();
 		services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 		services.AddAuthorization();
-		services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
-		services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 		var authenticationSettings = new AuthenticationSettings();
 		configuration.GetSection("Authentication").Bind(authenticationSettings);
 
@@ -56,6 +55,7 @@ public static class DependencyInjection
 		services.AddSingleton(authenticationSettings);
 		services.AddScoped<IJwtService, JwtService>();
 		services.AddScoped<IUserContextService, UserContextService>();
+		services.AddScoped<IAuthorizationService, AuthorizationService>();
 	}
 
 	public static void Seed(this WebApplication app)

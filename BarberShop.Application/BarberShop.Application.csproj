@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Dto\Slots\Validation\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\BarberShop.Domain\BarberShop.Domain.csproj" />
     </ItemGroup>
 

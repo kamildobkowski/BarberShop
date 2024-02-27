@@ -1,4 +1,4 @@
-using BarberShop.Application.Dto.Account.Validation;
+using BarberShop.Application.Dto.Account;
 using BarberShop.Application.Middleware;
 using BarberShop.Application.Profiles;
 using BarberShop.Application.Services.Shops.Commands;

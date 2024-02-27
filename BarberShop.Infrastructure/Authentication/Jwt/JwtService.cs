@@ -19,13 +19,13 @@ public class JwtService : IJwtService
 	{
 		var claims = new List<Claim>
 		{
-			new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-			new(ClaimTypes.Name, $"{user.FirstName} {user.Surname}"),
-			new(ClaimTypes.Role, $"{user.Role.Name}"),
-			new(ClaimTypes.Email, $"{user.Email}")
+			new(Claims.Id, user.Id.ToString()),
+			new(Claims.FullName, $"{user.FirstName} {user.Surname}"),
+			new(Claims.Role, $"{user.Role.Name}"),
+			new(Claims.Email, $"{user.Email}")
 		};
 		if(user.ShopAdmin is not null)
-			claims.Add(new Claim("ShopIdentifier", user.ShopAdmin.ShopId.ToString()));
+			claims.Add(new Claim(Claims.ShopId, user.ShopAdmin.ShopId.ToString()));
 		
 		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
 		var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

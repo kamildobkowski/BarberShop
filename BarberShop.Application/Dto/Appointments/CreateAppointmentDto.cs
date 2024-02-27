@@ -1,11 +1,16 @@
-using System.Data;
 using BarberShop.Application.Interfaces.Repositories;
-using BarberShop.Application.Services.Appointments.Commands;
 using FluentValidation;
 
-namespace BarberShop.Application.Dto.Appointments.Validation;
+namespace BarberShop.Application.Dto.Appointments;
 
-public class CreateAppointmentValidator : AbstractValidator<CreateAppointmentCommand>
+public record CreateAppointmentDto
+{
+	public int ShopId { get; init; }
+	public DateTime StartDate { get; init; }
+	public int ServiceId { get; init; }
+}
+
+public class CreateAppointmentValidator : AbstractValidator<CreateAppointmentDto>
 {
 	public CreateAppointmentValidator(IBarberServiceRepository barberServiceRepository, ITimeTableRepository repository)
 	{

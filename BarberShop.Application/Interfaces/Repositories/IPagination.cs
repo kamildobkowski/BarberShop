@@ -1,5 +1,6 @@
-using BarberShop.Application.Dto;
-using BarberShop.Application.Models;
+using BarberShop.Domain.Common;
+using BarberShop.Domain.Entites;
+using BarberShop.Domain.Entites.Appointments;
 
 namespace BarberShop.Application.Interfaces.Repositories;
 
