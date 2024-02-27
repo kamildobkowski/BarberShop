@@ -1,0 +1,3 @@
+kamil@kamil.pl kamil shopAdmin id=1
+kamilk@kamil.com Gowno123 customer id=2002
+admin@admin.pl kamil admin

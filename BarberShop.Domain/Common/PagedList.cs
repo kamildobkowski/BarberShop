@@ -1,10 +1,10 @@
 using System.Collections;
 
-namespace BarberShop.Application.Models;
+namespace BarberShop.Domain.Common;
 
 public class PagedList<T> : IEnumerable<T>
 {
-	public List<T> List { get; set; } = default!;
+	public List<T> List { get; set; }
 	public int Page { get; set; }
 	public int PageSize { get; set; }
 	public int Count { get; set; }

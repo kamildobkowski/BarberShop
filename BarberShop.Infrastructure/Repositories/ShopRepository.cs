@@ -2,8 +2,9 @@ using System.Linq.Expressions;
 using BarberShop.Application;
 using BarberShop.Application.Dto;
 using BarberShop.Application.Interfaces.Repositories;
-using BarberShop.Application.Models;
+using BarberShop.Domain.Common;
 using BarberShop.Domain.Entites;
+using BarberShop.Infrastructure.Pagination;
 using BarberShop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -35,7 +36,7 @@ public class ShopRepository : GenericRepository<Shop>, IShopRepository
 			.Include(r => r.Appointments)
 			.ToListAsync();
 
-	public async Task<PagedList<Shop>> GetPageAsync(int page, int pageSize, string? filter, string? orderBy ,bool sortOrder = true)
+	public Task<PagedList<Shop>> GetPageAsync(int page, int pageSize, string? filter, string? orderBy ,bool sortOrder = true)
 	{
 
 		Expression<Func<Shop, object>> orderByLambda = orderBy.IsNullOrEmpty()
@@ -46,7 +47,7 @@ public class ShopRepository : GenericRepository<Shop>, IShopRepository
 				_ => shop => shop.Id
 			};
 
-		return await GetPageQuery
+		return GetPageQuery
 			(page, pageSize, orderByLambda,
 				r => filter == null || r.Name.ToLower().Contains(filter.ToLower()), sortOrder)
 			.Include(r => r.Reviews)

@@ -1,14 +1,20 @@
+using System.Text;
+using BarberShop.Application.Interfaces;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Entites.Users;
+using BarberShop.Infrastructure.Authorization;
+using BarberShop.Infrastructure.Authorization.Jwt;
 using BarberShop.Infrastructure.ExternalServices;
 using BarberShop.Infrastructure.Persistence;
 using BarberShop.Infrastructure.Repositories;
-using BarberShop.Infrastructure.Seeders;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using IAuthorizationService = BarberShop.Application.Interfaces.IAuthorizationService;
 
 namespace BarberShop.Infrastructure;
 
@@ -23,18 +29,37 @@ public static class DependencyInjection
 		services.AddSingleton<ILocationService, LocationService>();
 		services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 		services.AddScoped<IUserRepository, UserRepository>();
-		services.AddScoped<IRoleSeeder, RoleSeeder>();
 		services.AddHttpClient<LocationService>();
 		services.AddScoped<ITimeTableRepository, TimeTableRepository>();
 		services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+		services.AddAuthorization();
+		var authenticationSettings = new AuthenticationSettings();
+		configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+		services.AddAuthentication(option =>
+		{
+			option.DefaultAuthenticateScheme = "Bearer";
+			option.DefaultScheme = "Bearer";
+			option.DefaultChallengeScheme = "Bearer";
+		}).AddJwtBearer(cfg =>
+		{
+			cfg.RequireHttpsMetadata = false;
+			cfg.SaveToken = true;
+			cfg.TokenValidationParameters = new TokenValidationParameters
+			{
+				ValidIssuer = authenticationSettings.JwtIssuer,
+				ValidAudience = authenticationSettings.JwtIssuer,
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+			};
+		});
+		services.AddSingleton(authenticationSettings);
+		services.AddScoped<IJwtService, JwtService>();
+		services.AddScoped<IUserContextService, UserContextService>();
+		services.AddScoped<IAuthorizationService, AuthorizationService>();
 	}
 
 	public static void Seed(this WebApplication app)
 	{
-		using (var scope = app.Services.CreateScope())
-		{
-			var service = scope.ServiceProvider.GetRequiredService<IRoleSeeder>();
-			service.Seed();
-		}
+		
 	}
 }

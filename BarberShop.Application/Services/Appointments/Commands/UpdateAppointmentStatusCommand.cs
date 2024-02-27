@@ -1,3 +1,4 @@
+using BarberShop.Application.Interfaces;
 using BarberShop.Application.Interfaces.Repositories;
 using BarberShop.Domain.Exceptions;
 using BarberShop.Domain.ValueObjects;
@@ -10,10 +11,12 @@ public sealed record UpdateAppointmentStatusCommand(int Id, string NewStatus) : 
 internal sealed class UpdateAppointmentStatusCommandHandler : IRequestHandler<UpdateAppointmentStatusCommand>
 {
 	private readonly IAppointmentRepository _repository;
+	private readonly IAuthorizationService _authorizationService;
 
-	public UpdateAppointmentStatusCommandHandler(IAppointmentRepository repository)
+	public UpdateAppointmentStatusCommandHandler(IAppointmentRepository repository, IAuthorizationService authorizationService)
 	{
 		_repository = repository;
+		_authorizationService = authorizationService;
 	}
 	public async Task Handle(UpdateAppointmentStatusCommand request, CancellationToken cancellationToken)
 	{
@@ -24,6 +27,7 @@ internal sealed class UpdateAppointmentStatusCommandHandler : IRequestHandler<Up
 		var entity = await _repository.GetAsync(r => r.Id == request.Id);
 		if (entity is null)
 			throw new NotFoundException("Appointment not found");
+		_authorizationService.AuthorizeAppointment(entity.CustomerUserId, entity.ShopId);
 		entity.Status = status;
 		await _repository.SaveChangesAsync();
 	}
