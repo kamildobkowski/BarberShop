@@ -20,7 +20,6 @@ public class AppointmentController : ControllerBase
 	}
 	
 	[HttpPost]
-	[Authorize(Roles="Customer")]
 	public async Task<ActionResult> CreateAppointment([FromQuery] int shopId, 
 		[FromQuery] DateTime startDate, [FromBody] int serviceId)
 	{
@@ -44,6 +43,14 @@ public class AppointmentController : ControllerBase
 		await _mediator.Send(query);
 		return StatusCode(206);
 	}
+
+	[HttpGet]
+	public async Task<ActionResult<List<AppointmentDto>>> GetLoggedUserAppointments()
+	{
+		var dtos = await _mediator.Send(new GetLoggedUserAppointmentsQuery());
+		return Ok(dtos);
+	}
+	
 	
 	
 }
