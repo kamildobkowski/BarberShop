@@ -21,7 +21,12 @@ public class ErrorHandlingMiddleware : IMiddleware
 			context.Response.StatusCode = StatusCodes.Status403Forbidden;
 			await context.Response.WriteAsync(e.Message);
 		}
-		catch (Exception e)
+		catch (UnauthorizedAccessException e)
+		{
+			context.Response.StatusCode = StatusCodes.Status403Forbidden;
+			await context.Response.WriteAsync(e.Message);
+		}
+		catch (Exception)
 		{
 			context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 			await context.Response.WriteAsync("Something went wrong");

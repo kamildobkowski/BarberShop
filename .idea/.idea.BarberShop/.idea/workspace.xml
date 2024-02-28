@@ -16,7 +16,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca576616-8d88-4a1b-9b81-d39fc9bf4e36" name="Changes" comment="" />
+    <list default="true" id="ca576616-8d88-4a1b-9b81-d39fc9bf4e36" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarberShop/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BarberShop/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarberShop.Application/Middleware/ErrorHandlingMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BarberShop.Application/Middleware/ErrorHandlingMiddleware.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,6 +104,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -372,6 +376,8 @@
       <workItem from="1708956587922" duration="9039000" />
       <workItem from="1709051588177" duration="413000" />
       <workItem from="1709052070603" duration="6548000" />
+      <workItem from="1709066981265" duration="465000" />
+      <workItem from="1709119255475" duration="714000" />
     </task>
     <task id="LOCAL-00001" summary="Json Api finally working">
       <option name="closed" value="true" />
@@ -733,7 +739,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709066838887</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="idea files commit">
+      <option name="closed" value="true" />
+      <created>1709067082830</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1709067082830</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -753,8 +767,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Created entites based on Vertabelo&#10;Fixed add service bug" />
-    <MESSAGE value="Added UserRepository with Interface&#10;Modified IGenericRepository.cs" />
     <MESSAGE value="Refactored Specific repository pattern to use Base Abstract class of GenericRepository.cs&#10;Modified Requests and Handlers to match refactored repositories" />
     <MESSAGE value="cleaned up UserRepository.cs" />
     <MESSAGE value="Added User Register and Login&#10;Added jwt token generator&#10;Added WrongCredentialsException.cs&#10;Refactored LocationService.cs to use Http Factory" />
@@ -778,7 +790,9 @@
     <MESSAGE value="Move jwt provider to infrastructure project" />
     <MESSAGE value="added UserContextService.cs" />
     <MESSAGE value="Full authorization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Full authorization" />
+    <MESSAGE value="idea files commit" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -791,7 +805,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BarberShop.Application/Services/Appointments/Queries/GetAppointmentQuery.cs</url>
-          <line>23</line>
+          <line>27</line>
           <properties documentPath="$PROJECT_DIR$/BarberShop.Application/Services/Appointments/Queries/GetAppointmentQuery.cs" initialLine="22" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
               <option value="834" />
@@ -801,19 +815,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BarberShop.Application/Services/Appointments/Commands/CreateAppointmentCommand.cs</url>
-          <line>33</line>
-          <properties documentPath="$PROJECT_DIR$/BarberShop.Application/Services/Appointments/Commands/CreateAppointmentCommand.cs" initialLine="33" containingFunctionPresentation="Method 'Handle'">
-            <startOffsets>
-              <option value="1292" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1456" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
